@@ -3,10 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>テストページ</title>
+    <title>シンプル収支管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .balance {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .balance-item {
+            text-align: center;
+        }
+        
+        .balance-amount {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .income { color: #4CAF50; }
+        .expense { color: #f44336; }
+        .total { color: #2196F3; }
+        
+        .form-section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .form-row > div {
+            flex: 1;
+        }
+        
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+        
+        .transactions {
+            padding: 20px;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .transaction-info {
+            flex: 1;
+        }
+        
+        .transaction-amount {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .transaction-date {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            width: auto;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .balance {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>GitHub Pages テスト成功！</p>
+    <div class="container">
+        <div class="header">
+            <h1>💰 シンプル収支管理</h1>
+            <p>収入と支出を記録して家計を管理しよう</p>
+        </div>
+        
+        <div class="balance">
+            <div class="balance-item">
+                <div>収入</div>
+                <div class="balance-amount income" id="totalIncome">¥0</div>
+            </div>
+            <div class="balance-item">
+                <div>支出</div>
+                <div class="balance-amount expense" id="totalExpense">¥0</div>
+            </div>
+            <div class="balance-item">
+                <div>残高</div>
+                <div class="balance-amount total" id="balance">¥0</div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h3>新しい取引を追加</h3>
+            <form id="transactionForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="description">内容</label>
+                        <input type="text" id="description" placeholder="例: 食費、給料など" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">金額</label>
+                        <input type="number" id="amount" placeholder="1000" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="type">種類</label>
+                        <select id="type" required>
+                            <option value="">選択してください</option>
+                            <option value="income">収入</option>
+                            <option value="expense">支出</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">日付</label>
+                        <input type="date" id="date" required>
+                    </div>
+                </div>
+                <button type="submit">追加</button>
+            </form>
+        </div>
+        
+        <div class="transactions">
+            <h3>取引履歴</h3>
+            <div id="transactionList">
+                <p style="text-align: center; color: #666; padding: 20px;">
+                    まだ取引がありません。上のフォームから追加してください。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        
+        // 今日の日付をデフォルトに設定
+        document.getElementById('date').valueAsDate = new Date();
+        
+        // フォーム送信処理
+        document.getElementById('transactionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const type = document.getElementById('type').value;
+            const date = document.getElementById('date').value;
+            
+            const transaction = {
+                id: Date.now(),
+                description,
+                amount,
+                type,
+                date
+            };
+            
+            transactions.push(transaction);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // フォームをリセット
+            this.reset();
+            document.getElementById('date').valueAsDate = new Date();
+            
+            updateDisplay();
+        });
+        
+        // 取引削除
+        function deleteTransaction(id) {
+            transactions = transactions.filter(t => t.id !== id);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            updateDisplay();
+        }
+        
+        // 表示更新
+        function updateDisplay() {
+            const totalIncome = transactions
+                .filter(t => t.type === 'income')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const totalExpense = transactions
+                .filter(t => t.type === 'expense')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const balance = totalIncome - totalExpense;
+            
+            document.getElementById('totalIncome').textContent = `¥${totalIncome.toLocaleString()}`;
+            document.getElementById('totalExpense').textContent = `¥${totalExpense.toLocaleString()}`;
+            document.getElementById('balance').textContent = `¥${balance.toLocaleString()}`;
+            
+            // 取引履歴表示
+            const transactionList = document.getElementById('transactionList');
+            
+            if (transactions.length === 0) {
+                transactionList.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">まだ取引がありません。上のフォームから追加してください。</p>';
+                return;
+            }
+            
+            const sortedTransactions = transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            transactionList.innerHTML = sortedTransactions.map(transaction => `
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div style="font-weight: bold;">${transaction.description}</div>
+                        <div class="transaction-date">${transaction.date}</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="transaction-amount ${transaction.type}">
+                            ${transaction.type === 'income' ? '+' : '-'}¥${transaction.amount.toLocaleString()}
+                        </div>
+                        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">削除</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // 初期表示
+        updateDisplay();
+    </script>
 </body>
 </html>
