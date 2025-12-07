@@ -15,14 +15,17 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 10px;
+            padding: 5px;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 100%;
+            width: 100%;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
+            border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
@@ -30,58 +33,64 @@
         .header {
             background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
-            padding: 20px;
+            padding: 15px 10px;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             opacity: 0.9;
         }
 
         .main-content {
-            padding: 20px;
+            padding: 10px;
+            width: 100%;
         }
 
         .input-section {
             background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            padding: 15px 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            width: 100%;
         }
 
         .input-group {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+            width: 100%;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
+            width: 100%;
         }
 
         .form-group label {
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: #333;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .form-group input, .form-group select {
-            padding: 12px;
+            width: 100%;
+            padding: 10px 8px;
             border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
             transition: border-color 0.3s ease;
+            box-sizing: border-box;
         }
 
         .form-group input:focus, .form-group select:focus {
@@ -90,32 +99,36 @@
         }
 
         .image-preview {
-            margin-top: 10px;
+            margin-top: 8px;
+            width: 100%;
         }
 
         .image-preview img {
-            max-width: 200px;
-            max-height: 150px;
-            border-radius: 8px;
+            max-width: 100%;
+            max-height: 120px;
+            border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .button-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            width: 100%;
         }
 
         .btn {
-            padding: 14px 20px;
+            width: 100%;
+            padding: 12px 15px;
             border: none;
-            border-radius: 25px;
-            font-size: 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            box-sizing: border-box;
         }
 
         .btn-primary {
@@ -124,8 +137,8 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(76, 175, 80, 0.4);
         }
 
         .btn-secondary {
@@ -134,24 +147,27 @@
         }
 
         .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(33, 150, 243, 0.4);
         }
 
         .summary-section {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+            width: 100%;
         }
 
         .summary-card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
+            padding: 15px 10px;
+            border-radius: 10px;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
             border-left: 4px solid;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .summary-card.income {
@@ -167,15 +183,15 @@
         }
 
         .summary-card h3 {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .summary-card .amount {
-            font-size: 2rem;
+            font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 5px;
         }
@@ -194,34 +210,38 @@
 
         .history-section {
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            width: 100%;
         }
 
         .history-header {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 15px 10px;
             border-bottom: 1px solid #e1e5e9;
         }
 
         .history-header h3 {
             color: #333;
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin: 0;
         }
 
         .history-list {
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
+            width: 100%;
         }
 
         .history-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
+            flex-direction: column;
+            padding: 12px 10px;
             border-bottom: 1px solid #f0f0f0;
+            gap: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .history-item:last-child {
@@ -229,26 +249,36 @@
         }
 
         .item-info {
-            flex: 1;
+            width: 100%;
         }
 
         .item-description {
             font-weight: 600;
             color: #333;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
+            font-size: 0.9rem;
+            word-break: break-word;
         }
 
         .item-details {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #666;
+            word-break: break-word;
+        }
+
+        .item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
 
         .item-amount {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin-left: 10px;
+            padding: 6px 12px;
+            border-radius: 15px;
+            white-space: nowrap;
         }
 
         .item-amount.income {
@@ -262,40 +292,39 @@
         }
 
         .receipt-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
             object-fit: cover;
             cursor: pointer;
-            margin-left: 10px;
             border: 2px solid #ddd;
+            margin-right: 8px;
         }
 
         .delete-btn {
             background: #ff4757;
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 15px;
+            padding: 5px 10px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 0.8rem;
-            margin-left: 10px;
+            font-size: 0.7rem;
         }
 
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 15px;
             color: #666;
         }
 
         .empty-state .emoji {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
         .empty-state p {
-            font-size: 1rem;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
 
         .modal {
@@ -314,8 +343,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 95%;
+            max-height: 95%;
         }
 
         .modal-content img {
@@ -326,18 +355,51 @@
 
         .close-modal {
             position: absolute;
-            top: 10px;
-            right: 25px;
+            top: 5px;
+            right: 15px;
             color: white;
-            font-size: 35px;
+            font-size: 25px;
             font-weight: bold;
             cursor: pointer;
+            z-index: 1001;
         }
 
-        /* タブレット対応 */
+        /* タブレット以上 */
         @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                max-width: 800px;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+                margin-bottom: 8px;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .input-section {
+                padding: 20px;
+            }
+
             .input-group {
+                display: grid;
                 grid-template-columns: 1fr 1fr;
+                gap: 15px;
             }
 
             .button-group {
@@ -345,93 +407,33 @@
             }
 
             .summary-section {
+                display: grid;
                 grid-template-columns: repeat(3, 1fr);
-            }
-
-            .history-item {
-                align-items: flex-start;
-            }
-        }
-
-        /* スマホ対応 */
-        @media (max-width: 767px) {
-            body {
-                padding: 5px;
-            }
-
-            .container {
-                border-radius: 10px;
-            }
-
-            .header {
-                padding: 15px;
-            }
-
-            .header h1 {
-                font-size: 1.5rem;
-            }
-
-            .main-content {
-                padding: 15px;
-            }
-
-            .input-section {
-                padding: 15px;
-            }
-
-            .form-group input, .form-group select {
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-
-            .btn {
-                padding: 12px 16px;
-                font-size: 0.9rem;
+                gap: 15px;
             }
 
             .summary-card {
-                padding: 20px 15px;
+                padding: 25px;
             }
 
             .summary-card .amount {
-                font-size: 1.6rem;
-            }
-
-            .history-header {
-                padding: 15px;
+                font-size: 2rem;
             }
 
             .history-item {
-                padding: 12px 15px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+                flex-direction: row;
+                align-items: center;
+                padding: 15px 20px;
+            }
+
+            .item-actions {
+                justify-content: flex-end;
+                width: auto;
             }
 
             .item-amount {
-                align-self: flex-end;
-                margin-left: 0;
-            }
-
-            .receipt-image {
-                width: 35px;
-                height: 35px;
-            }
-        }
-
-        /* 小さなスマホ対応 */
-        @media (max-width: 360px) {
-            .header h1 {
-                font-size: 1.3rem;
-            }
-
-            .summary-card .amount {
-                font-size: 1.4rem;
-            }
-
-            .btn {
-                padding: 10px 14px;
-                font-size: 0.85rem;
+                font-size: 1.1rem;
+                margin-left: 10px;
             }
         }
     </style>
@@ -617,11 +619,13 @@
                         <div class="item-description">${transaction.description}</div>
                         <div class="item-details">${transaction.date} • ${transaction.category}</div>
                     </div>
-                    <div class="item-amount ${transaction.type}">
-                        ${transaction.type === 'income' ? '+' : '-'}¥${transaction.amount.toLocaleString()}
+                    <div class="item-actions">
+                        <div class="item-amount ${transaction.type}">
+                            ${transaction.type === 'income' ? '+' : '-'}¥${transaction.amount.toLocaleString()}
+                        </div>
+                        ${transaction.receipt ? `<img src="${transaction.receipt}" class="receipt-image" onclick="showModal('${transaction.receipt}')" alt="レシート">` : ''}
+                        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">削除</button>
                     </div>
-                    ${transaction.receipt ? `<img src="${transaction.receipt}" class="receipt-image" onclick="showModal('${transaction.receipt}')" alt="レシート">` : ''}
-                    <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">削除</button>
                 </div>
             `).join('');
         }
