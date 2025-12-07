@@ -87,10 +87,9 @@
         .form-group select {
             padding: 10px 12px;
             border: 2px solid #e1e5e9;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 0.9rem;
             transition: border-color 0.3s ease;
-            background: white;
             width: 100%;
             box-sizing: border-box;
         }
@@ -102,16 +101,150 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
-        .hourly-section {
-            background: #e8f5e8;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #4CAF50;
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             width: 100%;
         }
 
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        .summary-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .tab-navigation {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 15px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        .period-selector {
+            margin-bottom: 10px;
+        }
+
+        .period-selector select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: white;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 20px 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #4CAF50;
+            width: 100%;
+        }
+
+        .summary-card h3 {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .summary-card .amount {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .summary-card.income .amount {
+            color: #4CAF50;
+        }
+
+        .summary-card.expense .amount {
+            color: #f44336;
+        }
+
+        .summary-card.balance .amount {
+            color: #2196F3;
+        }
+
+        .hourly-section {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e3f2fd;
+            margin-top: 10px;
+        }
+
         .hourly-section h4 {
-            color: #2e7d32;
+            color: #1976d2;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
@@ -120,7 +253,6 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            width: 100%;
         }
 
         .calculated-amount {
@@ -169,104 +301,9 @@
 
         .image-preview img {
             max-width: 100%;
-            height: auto;
-            border-radius: 8px;
+            max-height: 150px;
+            border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-            transform: translateY(-1px);
-        }
-
-        .summary-section {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .summary-card {
-            background: white;
-            padding: 20px 15px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #ddd;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .summary-card.income {
-            border-left-color: #4CAF50;
-        }
-
-        .summary-card.expense {
-            border-left-color: #f44336;
-        }
-
-        .summary-card.balance {
-            border-left-color: #2196F3;
-        }
-
-        .summary-card h3 {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .summary-card .amount {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .summary-card.income .amount {
-            color: #4CAF50;
-        }
-
-        .summary-card.expense .amount {
-            color: #f44336;
-        }
-
-        .summary-card.balance .amount {
-            color: #2196F3;
         }
 
         .history-section {
@@ -316,8 +353,8 @@
         .item-description {
             font-weight: 600;
             color: #333;
-            font-size: 0.9rem;
             margin-bottom: 4px;
+            font-size: 0.9rem;
         }
 
         .item-details {
@@ -353,7 +390,12 @@
             object-fit: cover;
             border-radius: 4px;
             cursor: pointer;
-            border: 1px solid #ddd;
+            border: 2px solid #e1e5e9;
+            transition: transform 0.2s ease;
+        }
+
+        .receipt-image:hover {
+            transform: scale(1.1);
         }
 
         .delete-btn {
@@ -364,7 +406,7 @@
             border-radius: 4px;
             font-size: 0.7rem;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         .delete-btn:hover {
@@ -401,27 +443,35 @@
         .modal-content {
             position: relative;
             margin: 5% auto;
-            padding: 20px;
+            padding: 0;
             width: 90%;
             max-width: 600px;
-            text-align: center;
+            max-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content img {
-            width: 100%;
-            height: auto;
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
             border-radius: 8px;
         }
 
         .close-modal {
             position: absolute;
-            top: 5px;
-            right: 15px;
+            top: -40px;
+            right: 0;
             color: white;
-            font-size: 25px;
+            font-size: 35px;
             font-weight: bold;
             cursor: pointer;
             z-index: 1001;
+        }
+
+        .close-modal:hover {
+            opacity: 0.7;
         }
 
         /* タブレット以上 */
@@ -466,10 +516,19 @@
                 flex-direction: row;
             }
 
-            .summary-section {
-                display: grid;
+            .tab-content {
+                display: none;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 15px;
+            }
+
+            .tab-content.active {
+                display: grid;
+            }
+
+            .period-selector {
+                grid-column: 1 / -1;
+                margin-bottom: 10px;
             }
 
             .summary-card {
@@ -529,16 +588,6 @@
                             <button type="button" class="toggle-btn" onclick="setIncomeMode('hourly')">時給計算</button>
                         </div>
                     </div>
-
-                    <!-- 個人・法人切り替え（収入時のみ表示） -->
-                    <div class="form-group" id="entityTypeSection" style="display: block;">
-                        <label>👤 収入種別</label>
-                        <div class="input-mode-toggle">
-                            <button type="button" class="toggle-btn active" id="personalBtn" onclick="setEntityType('personal')">個人</button>
-                            <button type="button" class="toggle-btn" id="corporateBtn" onclick="setEntityType('corporate')">法人</button>
-                        </div>
-                    </div>
-
                     <!-- 直接入力モード -->
                     <div class="form-group" id="manualAmountSection">
                         <label for="amount">💵 金額</label>
@@ -591,17 +640,69 @@
 
             <!-- サマリーセクション -->
             <div class="summary-section">
-                <div class="summary-card income">
-                    <h3>📈 総収入</h3>
-                    <div class="amount" id="totalIncome">¥0</div>
+                <!-- タブナビゲーション -->
+                <div class="tab-navigation">
+                    <button class="tab-btn active" onclick="switchTab('all')">全期間</button>
+                    <button class="tab-btn" onclick="switchTab('monthly')">月別</button>
+                    <button class="tab-btn" onclick="switchTab('yearly')">年別</button>
                 </div>
-                <div class="summary-card expense">
-                    <h3>📉 総支出</h3>
-                    <div class="amount" id="totalExpense">¥0</div>
+
+                <!-- 全期間タブ -->
+                <div id="allTab" class="tab-content active">
+                    <div class="summary-card income">
+                        <h3>📈 総収入</h3>
+                        <div class="amount" id="totalIncome">¥0</div>
+                    </div>
+                    <div class="summary-card expense">
+                        <h3>📉 総支出</h3>
+                        <div class="amount" id="totalExpense">¥0</div>
+                    </div>
+                    <div class="summary-card balance">
+                        <h3>💰 残高</h3>
+                        <div class="amount" id="balance">¥0</div>
+                    </div>
                 </div>
-                <div class="summary-card balance">
-                    <h3>💰 残高</h3>
-                    <div class="amount" id="balance">¥0</div>
+
+                <!-- 月別タブ -->
+                <div id="monthlyTab" class="tab-content">
+                    <div class="period-selector">
+                        <select id="monthSelector" onchange="updateMonthlyDisplay()">
+                            <!-- 動的に生成 -->
+                        </select>
+                    </div>
+                    <div class="summary-card income">
+                        <h3>📈 月間収入</h3>
+                        <div class="amount" id="monthlyIncome">¥0</div>
+                    </div>
+                    <div class="summary-card expense">
+                        <h3>📉 月間支出</h3>
+                        <div class="amount" id="monthlyExpense">¥0</div>
+                    </div>
+                    <div class="summary-card balance">
+                        <h3>💰 月間収支</h3>
+                        <div class="amount" id="monthlyBalance">¥0</div>
+                    </div>
+                </div>
+
+                <!-- 年別タブ -->
+                <div id="yearlyTab" class="tab-content">
+                    <div class="period-selector">
+                        <select id="yearSelector" onchange="updateYearlyDisplay()">
+                            <!-- 動的に生成 -->
+                        </select>
+                    </div>
+                    <div class="summary-card income">
+                        <h3>📈 年間収入</h3>
+                        <div class="amount" id="yearlyIncome">¥0</div>
+                    </div>
+                    <div class="summary-card expense">
+                        <h3>📉 年間支出</h3>
+                        <div class="amount" id="yearlyExpense">¥0</div>
+                    </div>
+                    <div class="summary-card balance">
+                        <h3>💰 年間収支</h3>
+                        <div class="amount" id="yearlyBalance">¥0</div>
+                    </div>
                 </div>
             </div>
 
@@ -631,21 +732,7 @@
     <script>
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         let currentIncomeMode = 'manual'; // 'manual' or 'hourly'
-        let currentEntityType = 'personal'; // 'personal' or 'corporate'
-
-        function setEntityType(type) {
-            currentEntityType = type;
-            
-            // トグルボタンの状態更新
-            document.getElementById('personalBtn').classList.remove('active');
-            document.getElementById('corporateBtn').classList.remove('active');
-            
-            if (type === 'personal') {
-                document.getElementById('personalBtn').classList.add('active');
-            } else {
-                document.getElementById('corporateBtn').classList.add('active');
-            }
-        }
+        let currentTab = 'all';
 
         function setIncomeMode(mode) {
             currentIncomeMode = mode;
@@ -667,14 +754,11 @@
         function toggleIncomeMode() {
             const type = document.getElementById('type').value;
             const incomeModeSection = document.getElementById('incomeModeSection');
-            const entityTypeSection = document.getElementById('entityTypeSection');
             
             if (type === 'income') {
                 incomeModeSection.style.display = 'block';
-                entityTypeSection.style.display = 'block';
             } else {
                 incomeModeSection.style.display = 'none';
-                entityTypeSection.style.display = 'none';
                 // 支出の場合は直接入力モードに戻す
                 setIncomeMode('manual');
                 document.querySelector('.toggle-btn').classList.add('active');
@@ -687,6 +771,21 @@
             const calculatedAmount = hourlyRate * workHours;
             
             document.getElementById('calculatedAmount').textContent = `計算結果: ¥${calculatedAmount.toLocaleString()}`;
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // タブボタンの状態更新
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // タブコンテンツの表示切り替え
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tab + 'Tab').classList.add('active');
+            
+            // 表示更新
+            updateDisplay();
         }
 
         function addTransaction() {
@@ -725,7 +824,6 @@
                 category,
                 date: selectedDate.toLocaleDateString('ja-JP'),
                 detailInfo, // 時給計算の詳細情報
-                entityType: type === 'income' ? currentEntityType : null, // 個人・法人情報
                 receipt: null
             };
 
@@ -759,6 +857,13 @@
         function updateDisplay() {
             updateSummary();
             updateHistory();
+            updatePeriodSelectors();
+            
+            if (currentTab === 'monthly') {
+                updateMonthlyDisplay();
+            } else if (currentTab === 'yearly') {
+                updateYearlyDisplay();
+            }
         }
 
         function updateSummary() {
@@ -775,6 +880,106 @@
             document.getElementById('totalIncome').textContent = `¥${totalIncome.toLocaleString()}`;
             document.getElementById('totalExpense').textContent = `¥${totalExpense.toLocaleString()}`;
             document.getElementById('balance').textContent = `¥${balance.toLocaleString()}`;
+        }
+
+        function updatePeriodSelectors() {
+            updateMonthSelector();
+            updateYearSelector();
+        }
+
+        function updateMonthSelector() {
+            const monthSelector = document.getElementById('monthSelector');
+            const months = new Set();
+            
+            transactions.forEach(t => {
+                const date = new Date(t.date);
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                months.add(monthKey);
+            });
+            
+            const sortedMonths = Array.from(months).sort().reverse();
+            
+            monthSelector.innerHTML = sortedMonths.map(month => {
+                const [year, monthNum] = month.split('-');
+                return `<option value="${month}">${year}年${monthNum}月</option>`;
+            }).join('');
+            
+            if (sortedMonths.length === 0) {
+                monthSelector.innerHTML = '<option value="">データなし</option>';
+            }
+        }
+
+        function updateYearSelector() {
+            const yearSelector = document.getElementById('yearSelector');
+            const years = new Set();
+            
+            transactions.forEach(t => {
+                const date = new Date(t.date);
+                years.add(date.getFullYear());
+            });
+            
+            const sortedYears = Array.from(years).sort().reverse();
+            
+            yearSelector.innerHTML = sortedYears.map(year => 
+                `<option value="${year}">${year}年</option>`
+            ).join('');
+            
+            if (sortedYears.length === 0) {
+                yearSelector.innerHTML = '<option value="">データなし</option>';
+            }
+        }
+
+        function updateMonthlyDisplay() {
+            const monthSelector = document.getElementById('monthSelector');
+            const selectedMonth = monthSelector.value;
+            
+            if (!selectedMonth) return;
+            
+            const [year, month] = selectedMonth.split('-');
+            const filteredTransactions = transactions.filter(t => {
+                const date = new Date(t.date);
+                return date.getFullYear() == year && (date.getMonth() + 1) == parseInt(month);
+            });
+            
+            const monthlyIncome = filteredTransactions
+                .filter(t => t.type === 'income')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const monthlyExpense = filteredTransactions
+                .filter(t => t.type === 'expense')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const monthlyBalance = monthlyIncome - monthlyExpense;
+            
+            document.getElementById('monthlyIncome').textContent = `¥${monthlyIncome.toLocaleString()}`;
+            document.getElementById('monthlyExpense').textContent = `¥${monthlyExpense.toLocaleString()}`;
+            document.getElementById('monthlyBalance').textContent = `¥${monthlyBalance.toLocaleString()}`;
+        }
+
+        function updateYearlyDisplay() {
+            const yearSelector = document.getElementById('yearSelector');
+            const selectedYear = yearSelector.value;
+            
+            if (!selectedYear) return;
+            
+            const filteredTransactions = transactions.filter(t => {
+                const date = new Date(t.date);
+                return date.getFullYear() == selectedYear;
+            });
+            
+            const yearlyIncome = filteredTransactions
+                .filter(t => t.type === 'income')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const yearlyExpense = filteredTransactions
+                .filter(t => t.type === 'expense')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const yearlyBalance = yearlyIncome - yearlyExpense;
+            
+            document.getElementById('yearlyIncome').textContent = `¥${yearlyIncome.toLocaleString()}`;
+            document.getElementById('yearlyExpense').textContent = `¥${yearlyExpense.toLocaleString()}`;
+            document.getElementById('yearlyBalance').textContent = `¥${yearlyBalance.toLocaleString()}`;
         }
 
         function updateHistory() {
@@ -796,7 +1001,6 @@
                         <div class="item-description">${transaction.description}</div>
                         <div class="item-details">
                             ${transaction.date} • ${transaction.category}
-                            ${transaction.entityType ? ` • ${transaction.entityType === 'personal' ? '👤個人' : '🏢法人'}` : ''}
                             ${transaction.detailInfo ? `<br>📊 ${transaction.detailInfo}` : ''}
                         </div>
                     </div>
@@ -826,9 +1030,6 @@
             // 収入モードをリセット
             setIncomeMode('manual');
             document.querySelector('.toggle-btn').classList.add('active');
-            
-            // 個人・法人をリセット
-            setEntityType('personal');
         }
 
         function showModal(imageSrc) {
