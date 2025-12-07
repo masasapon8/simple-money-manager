@@ -74,6 +74,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            position: relative;
         }
 
         .form-group label {
@@ -197,6 +198,68 @@
             max-height: 150px;
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 入力履歴機能のスタイル */
+        .input-history-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .history-item-suggestion {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.85rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .history-item-suggestion:hover {
+            background-color: #f8f9fa;
+        }
+
+        .history-item-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        .history-item-suggestion .suggestion-main {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .history-item-suggestion .suggestion-details {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .history-toggle-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .history-toggle-btn:hover {
+            background-color: #f0f0f0;
         }
 
         .button-group {
@@ -641,7 +704,12 @@
 
                     <div class="form-group">
                         <label for="description">📝 項目名</label>
-                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など">
+                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など" 
+                               oninput="showInputHistory('description')" 
+                               onblur="hideInputHistory('description')"
+                               onfocus="showInputHistory('description')">
+                        <button class="history-toggle-btn" onclick="toggleInputHistory('description')" title="履歴表示">📋</button>
+                        <div class="input-history-dropdown" id="descriptionHistory"></div>
                     </div>
                     <div class="form-group">
                         <label for="type">📊 種類</label>
@@ -662,7 +730,12 @@
                     <!-- 直接入力モード -->
                     <div class="form-group" id="manualAmountSection">
                         <label for="amount">💵 金額</label>
-                        <input type="number" id="amount" placeholder="金額を入力" inputmode="numeric" pattern="[0-9]*">
+                        <input type="number" id="amount" placeholder="金額を入力" inputmode="numeric" pattern="[0-9]*"
+                               oninput="showInputHistory('amount')" 
+                               onblur="hideInputHistory('amount')"
+                               onfocus="showInputHistory('amount')">
+                        <button class="history-toggle-btn" onclick="toggleInputHistory('amount')" title="履歴表示">📋</button>
+                        <div class="input-history-dropdown" id="amountHistory"></div>
                     </div>
 
                     <!-- 時給計算モード -->
@@ -671,11 +744,21 @@
                         <div class="hourly-inputs">
                             <div class="form-group">
                                 <label for="hourlyRate">時給 (円)</label>
-                                <input type="number" id="hourlyRate" placeholder="1000" inputmode="numeric" pattern="[0-9]*" oninput="calculateHourlyAmount()">
+                                <input type="number" id="hourlyRate" placeholder="1000" inputmode="numeric" pattern="[0-9]*" 
+                                       oninput="calculateHourlyAmount(); showInputHistory('hourlyRate')" 
+                                       onblur="hideInputHistory('hourlyRate')"
+                                       onfocus="showInputHistory('hourlyRate')">
+                                <button class="history-toggle-btn" onclick="toggleInputHistory('hourlyRate')" title="履歴表示">📋</button>
+                                <div class="input-history-dropdown" id="hourlyRateHistory"></div>
                             </div>
                             <div class="form-group">
                                 <label for="workHours">時間数</label>
-                                <input type="number" id="workHours" step="0.5" placeholder="8" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" oninput="calculateHourlyAmount()">
+                                <input type="number" id="workHours" step="0.5" placeholder="8" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" 
+                                       oninput="calculateHourlyAmount(); showInputHistory('workHours')" 
+                                       onblur="hideInputHistory('workHours')"
+                                       onfocus="showInputHistory('workHours')">
+                                <button class="history-toggle-btn" onclick="toggleInputHistory('workHours')" title="履歴表示">📋</button>
+                                <div class="input-history-dropdown" id="workHoursHistory"></div>
                             </div>
                         </div>
                         <div class="calculated-amount" id="calculatedAmount">計算結果: ¥0</div>
@@ -687,7 +770,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category">🏷️ カテゴリ</label>
-                        <select id="category">
+                        <select id="category" onchange="showInputHistory('category')">
                             <option value="食費">食費</option>
                             <option value="交通費">交通費</option>
                             <option value="娯楽">娯楽</option>
@@ -695,6 +778,7 @@
                             <option value="給料">給料</option>
                             <option value="その他">その他</option>
                         </select>
+                        <div class="input-history-dropdown" id="categoryHistory"></div>
                     </div>
                     <div class="form-group">
                         <label for="receipt">📷 レシート画像（任意）</label>
@@ -826,6 +910,13 @@
 
     <script>
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let inputHistory = JSON.parse(localStorage.getItem('inputHistory')) || {
+            description: [],
+            amount: [],
+            hourlyRate: [],
+            workHours: [],
+            category: []
+        };
         let currentIncomeMode = 'manual'; // 'manual' or 'hourly'
         let currentAccountType = 'personal'; // 'personal' or 'corporate'
         let currentTab = 'all';
@@ -892,6 +983,88 @@
             updateDisplay();
         }
 
+        // 入力履歴機能
+        function saveInputHistory(field, value) {
+            if (!value || value.trim() === '') return;
+            
+            if (!inputHistory[field]) {
+                inputHistory[field] = [];
+            }
+            
+            // 重複を避けて先頭に追加
+            const index = inputHistory[field].indexOf(value);
+            if (index > -1) {
+                inputHistory[field].splice(index, 1);
+            }
+            inputHistory[field].unshift(value);
+            
+            // 最大20件まで保持
+            if (inputHistory[field].length > 20) {
+                inputHistory[field] = inputHistory[field].slice(0, 20);
+            }
+            
+            localStorage.setItem('inputHistory', JSON.stringify(inputHistory));
+        }
+
+        function showInputHistory(field) {
+            const dropdown = document.getElementById(field + 'History');
+            const input = document.getElementById(field);
+            const currentValue = input.value.toLowerCase();
+            
+            if (!inputHistory[field] || inputHistory[field].length === 0) {
+                dropdown.style.display = 'none';
+                return;
+            }
+            
+            // フィルタリング
+            let filteredHistory = inputHistory[field];
+            if (currentValue) {
+                filteredHistory = inputHistory[field].filter(item => 
+                    item.toLowerCase().includes(currentValue)
+                );
+            }
+            
+            if (filteredHistory.length === 0) {
+                dropdown.style.display = 'none';
+                return;
+            }
+            
+            // ドロップダウンの内容を生成
+            dropdown.innerHTML = filteredHistory.slice(0, 10).map(item => `
+                <div class="history-item-suggestion" onclick="selectHistoryItem('${field}', '${item}')">
+                    <div class="suggestion-main">${item}</div>
+                </div>
+            `).join('');
+            
+            dropdown.style.display = 'block';
+        }
+
+        function hideInputHistory(field) {
+            setTimeout(() => {
+                const dropdown = document.getElementById(field + 'History');
+                dropdown.style.display = 'none';
+            }, 200);
+        }
+
+        function toggleInputHistory(field) {
+            const dropdown = document.getElementById(field + 'History');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                showInputHistory(field);
+            }
+        }
+
+        function selectHistoryItem(field, value) {
+            document.getElementById(field).value = value;
+            document.getElementById(field + 'History').style.display = 'none';
+            
+            // 時給計算の場合は再計算
+            if (field === 'hourlyRate' || field === 'workHours') {
+                calculateHourlyAmount();
+            }
+        }
+
         function addTransaction() {
             const description = document.getElementById('description').value;
             const type = document.getElementById('type').value;
@@ -908,14 +1081,23 @@
                 const workHours = parseFloat(document.getElementById('workHours').value) || 0;
                 amount = hourlyRate * workHours;
                 detailInfo = `時給${hourlyRate}円 × ${workHours}時間`;
+                
+                // 入力履歴に保存
+                saveInputHistory('hourlyRate', hourlyRate.toString());
+                saveInputHistory('workHours', workHours.toString());
             } else {
                 amount = parseFloat(document.getElementById('amount').value) || 0;
+                saveInputHistory('amount', amount.toString());
             }
 
             if (!description || !amount) {
                 alert('項目名と金額を入力してください');
                 return;
             }
+
+            // 入力履歴に保存
+            saveInputHistory('description', description);
+            saveInputHistory('category', category);
 
             // 日付が入力されていない場合は今日の日付を使用
             const selectedDate = dateInput ? new Date(dateInput) : new Date();
