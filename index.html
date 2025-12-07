@@ -48,73 +48,6 @@
             opacity: 0.9;
         }
 
-        .account-selector {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            justify-content: center;
-        }
-
-        .account-btn {
-            padding: 8px 16px;
-            border: 2px solid rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .account-btn.active {
-            background: rgba(255,255,255,0.3);
-            border-color: rgba(255,255,255,0.6);
-            box-shadow: 0 2px 8px rgba(255,255,255,0.3);
-        }
-
-        .account-btn:hover {
-            background: rgba(255,255,255,0.25);
-        }
-
-        .tab-navigation {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 8px 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .tab-btn.active {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.5);
-            box-shadow: 0 2px 10px rgba(255,255,255,0.2);
-        }
-
-        .tab-btn:hover {
-            background: rgba(255,255,255,0.15);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
         .main-content {
             padding: 10px;
             width: 100%;
@@ -152,12 +85,13 @@
 
         .form-group input,
         .form-group select {
-            padding: 10px 12px;
+            padding: 10px;
             border: 2px solid #e1e5e9;
             border-radius: 8px;
             font-size: 0.9rem;
             transition: all 0.3s ease;
-            background: white;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .form-group input:focus,
@@ -165,6 +99,78 @@
             outline: none;
             border-color: #4CAF50;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .income-mode-section {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #e8f5e8;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .income-mode-section h4 {
+            margin-bottom: 10px;
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #4CAF50;
+            background: white;
+            color: #4CAF50;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .toggle-btn:hover {
+            background: #45a049;
+            color: white;
+        }
+
+        .hourly-section {
+            background: #f0f8f0;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .hourly-section h4 {
+            margin-bottom: 10px;
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+
+        .hourly-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .calculated-amount {
+            font-weight: bold;
+            color: #2e7d32;
+            text-align: center;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.9rem;
         }
 
         .button-group {
@@ -182,8 +188,8 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: center;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .btn-primary {
@@ -206,77 +212,6 @@
         .btn-secondary:hover {
             transform: translateY(-1px);
             box-shadow: 0 3px 10px rgba(33, 150, 243, 0.4);
-        }
-
-        .hourly-section {
-            background: #e8f5e8;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-            border: 2px solid #4CAF50;
-        }
-
-        .hourly-section h4 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-
-        .hourly-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .calculated-amount {
-            background: #fff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 2px solid #4CAF50;
-            color: #2e7d32;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 8px;
-            font-size: 0.9rem;
-        }
-
-        .input-mode-toggle {
-            display: flex;
-            background: #e1e5e9;
-            border-radius: 20px;
-            padding: 3px;
-            margin-bottom: 10px;
-        }
-
-        .toggle-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 17px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: transparent;
-            color: #666;
-        }
-
-        .toggle-btn.active {
-            background: #4CAF50;
-            color: white;
-            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
-        }
-
-        .image-preview {
-            margin-top: 8px;
-            width: 100%;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .summary-section {
@@ -404,6 +339,7 @@
         .item-amount {
             font-weight: 700;
             font-size: 1rem;
+            flex-shrink: 0;
         }
 
         .item-amount.income {
@@ -420,29 +356,24 @@
             object-fit: cover;
             border-radius: 4px;
             cursor: pointer;
-            border: 2px solid #e1e5e9;
-            transition: all 0.3s ease;
-        }
-
-        .receipt-image:hover {
-            border-color: #4CAF50;
-            transform: scale(1.1);
+            border: 1px solid #ddd;
+            flex-shrink: 0;
         }
 
         .delete-btn {
             background: #f44336;
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-radius: 4px;
             font-size: 0.7rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
+            flex-shrink: 0;
         }
 
         .delete-btn:hover {
             background: #d32f2f;
-            transform: translateY(-1px);
         }
 
         .empty-state {
@@ -459,6 +390,17 @@
         .empty-state p {
             font-size: 0.9rem;
             line-height: 1.5;
+        }
+
+        .image-preview {
+            margin-top: 10px;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .modal {
@@ -499,80 +441,6 @@
             opacity: 0.7;
         }
 
-        .period-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .period-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #007bff;
-        }
-
-        .period-card.personal {
-            border-left-color: #28a745;
-        }
-
-        .period-card.corporate {
-            border-left-color: #007bff;
-        }
-
-        .period-card h4 {
-            color: #495057;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .period-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .period-stats span {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-
-        .period-stats .amount {
-            font-weight: 600;
-        }
-
-        .period-stats .income {
-            color: #28a745;
-        }
-
-        .period-stats .expense {
-            color: #dc3545;
-        }
-
-        .account-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        .account-badge.personal {
-            background: rgba(40, 167, 69, 0.1);
-            color: #28a745;
-        }
-
-        .account-badge.corporate {
-            background: rgba(0, 123, 255, 0.1);
-            color: #007bff;
-        }
-
         /* タブレット以上 */
         @media (min-width: 768px) {
             body {
@@ -580,7 +448,7 @@
             }
 
             .container {
-                max-width: 900px;
+                max-width: 800px;
                 border-radius: 15px;
             }
 
@@ -644,15 +512,6 @@
                 font-size: 1.1rem;
                 margin-left: 10px;
             }
-
-            .tab-navigation {
-                gap: 10px;
-            }
-
-            .tab-btn {
-                font-size: 0.9rem;
-                padding: 10px 20px;
-            }
         }
     </style>
 </head>
@@ -660,44 +519,30 @@
     <div class="container">
         <div class="header">
             <h1>💰 収支管理サービス</h1>
-            <p>個人・法人の収支を分けて管理しましょう</p>
-            
-            <!-- アカウント選択 -->
-            <div class="account-selector">
-                <button class="account-btn active" onclick="switchAccount('personal')">👤 個人</button>
-                <button class="account-btn" onclick="switchAccount('corporate')">🏢 法人</button>
-            </div>
-            
-            <!-- タブナビゲーション -->
-            <div class="tab-navigation">
-                <button class="tab-btn active" onclick="switchTab('daily')">📊 日次管理</button>
-                <button class="tab-btn" onclick="switchTab('monthly')">📅 月次管理</button>
-                <button class="tab-btn" onclick="switchTab('yearly')">📈 年次管理</button>
-            </div>
+            <p>簡単に収入・支出を記録して家計を管理しましょう</p>
         </div>
 
         <div class="main-content">
-            <!-- 日次管理タブ -->
-            <div id="dailyTab" class="tab-content active">
-                <!-- 入力セクション -->
-                <div class="input-section">
-                    <div class="input-group">
-                        <div class="form-group">
-                            <label for="description">📝 項目名</label>
-                            <input type="text" id="description" placeholder="例: 食費、給料、交通費など">
-                        </div>
-                        <div class="form-group">
-                            <label for="type">📊 種類</label>
-                            <select id="type" onchange="toggleIncomeMode()">
-                                <option value="income">収入</option>
-                                <option value="expense">支出</option>
-                            </select>
-                        </div>
+            <!-- 入力セクション -->
+            <div class="input-section">
+                <div class="input-group">
+                    <div class="form-group">
+                        <label for="description">📝 項目名</label>
+                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など" list="description_suggestions">
+                        <datalist id="description_suggestions"></datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">📊 種類</label>
+                        <select id="type" onchange="toggleIncomeMode()">
+                            <option value="income">収入</option>
+                            <option value="expense">支出</option>
+                        </select>
                     </div>
 
                     <!-- 収入モード選択 -->
-                    <div id="incomeModeSection" style="display: block;">
-                        <div class="input-mode-toggle">
+                    <div class="income-mode-section" id="incomeModeSection" style="display: none;">
+                        <h4>💰 収入の入力方法</h4>
+                        <div class="toggle-buttons">
                             <button type="button" class="toggle-btn active" onclick="setIncomeMode('manual')">直接入力</button>
                             <button type="button" class="toggle-btn" onclick="setIncomeMode('hourly')">時給計算</button>
                         </div>
@@ -705,7 +550,8 @@
                     <!-- 直接入力モード -->
                     <div class="form-group" id="manualAmountSection">
                         <label for="amount">💵 金額</label>
-                        <input type="number" id="amount" placeholder="金額を入力" inputmode="numeric" pattern="[0-9]*">
+                        <input type="number" id="amount" placeholder="金額を入力" inputmode="numeric" pattern="[0-9]*" list="amount_suggestions">
+                        <datalist id="amount_suggestions"></datalist>
                     </div>
 
                     <!-- 時給計算モード -->
@@ -714,11 +560,13 @@
                         <div class="hourly-inputs">
                             <div class="form-group">
                                 <label for="hourlyRate">時給 (円)</label>
-                                <input type="number" id="hourlyRate" placeholder="1000" inputmode="numeric" pattern="[0-9]*" oninput="calculateHourlyAmount()">
+                                <input type="number" id="hourlyRate" placeholder="1000" inputmode="numeric" pattern="[0-9]*" oninput="calculateHourlyAmount()" list="hourlyRate_suggestions">
+                                <datalist id="hourlyRate_suggestions"></datalist>
                             </div>
                             <div class="form-group">
                                 <label for="workHours">時間数</label>
-                                <input type="number" id="workHours" step="0.5" placeholder="8" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" oninput="calculateHourlyAmount()">
+                                <input type="number" id="workHours" step="0.5" placeholder="8" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" oninput="calculateHourlyAmount()" list="workHours_suggestions">
+                                <datalist id="workHours_suggestions"></datalist>
                             </div>
                         </div>
                         <div class="calculated-amount" id="calculatedAmount">計算結果: ¥0</div>
@@ -736,9 +584,6 @@
                             <option value="娯楽">娯楽</option>
                             <option value="光熱費">光熱費</option>
                             <option value="給料">給料</option>
-                            <option value="売上">売上</option>
-                            <option value="仕入れ">仕入れ</option>
-                            <option value="経費">経費</option>
                             <option value="その他">その他</option>
                         </select>
                     </div>
@@ -747,54 +592,40 @@
                         <input type="file" id="receipt" accept="image/*">
                         <div class="image-preview" id="imagePreview"></div>
                     </div>
-
-                    <div class="button-group">
-                        <button class="btn btn-primary" onclick="addTransaction()">➕ 記録を追加</button>
-                        <button class="btn btn-secondary" onclick="clearForm()">🗑️ フォームをクリア</button>
-                    </div>
                 </div>
 
-                <!-- サマリーセクション -->
-                <div class="summary-section">
-                    <div class="summary-card income">
-                        <h3>📈 総収入</h3>
-                        <div class="amount" id="totalIncome">¥0</div>
-                    </div>
-                    <div class="summary-card expense">
-                        <h3>📉 総支出</h3>
-                        <div class="amount" id="totalExpense">¥0</div>
-                    </div>
-                    <div class="summary-card balance">
-                        <h3>💰 残高</h3>
-                        <div class="amount" id="balance">¥0</div>
-                    </div>
-                </div>
-
-                <!-- 履歴セクション -->
-                <div class="history-section">
-                    <div class="history-header">
-                        <h3>📋 取引履歴</h3>
-                    </div>
-                    <div class="history-list" id="historyList">
-                        <div class="empty-state">
-                            <div class="emoji">📝</div>
-                            <p>まだ取引記録がありません。<br>上のフォームから収支を記録してみましょう！</p>
-                        </div>
-                    </div>
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="addTransaction()">➕ 記録を追加</button>
+                    <button class="btn btn-secondary" onclick="clearForm()">🗑️ フォームをクリア</button>
                 </div>
             </div>
 
-            <!-- 月次管理タブ -->
-            <div id="monthlyTab" class="tab-content">
-                <div class="period-summary" id="monthlySummary">
-                    <!-- 月次データがここに表示されます -->
+            <!-- サマリーセクション -->
+            <div class="summary-section">
+                <div class="summary-card income">
+                    <h3>📈 総収入</h3>
+                    <div class="amount" id="totalIncome">¥0</div>
+                </div>
+                <div class="summary-card expense">
+                    <h3>📉 総支出</h3>
+                    <div class="amount" id="totalExpense">¥0</div>
+                </div>
+                <div class="summary-card balance">
+                    <h3>💰 残高</h3>
+                    <div class="amount" id="balance">¥0</div>
                 </div>
             </div>
 
-            <!-- 年次管理タブ -->
-            <div id="yearlyTab" class="tab-content">
-                <div class="period-summary" id="yearlySummary">
-                    <!-- 年次データがここに表示されます -->
+            <!-- 履歴セクション -->
+            <div class="history-section">
+                <div class="history-header">
+                    <h3>📋 取引履歴</h3>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="empty-state">
+                        <div class="emoji">📝</div>
+                        <p>まだ取引記録がありません。<br>上のフォームから収支を記録してみましょう！</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -811,211 +642,6 @@
     <script>
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         let currentIncomeMode = 'manual'; // 'manual' or 'hourly'
-        let currentAccount = 'personal'; // 'personal' or 'corporate'
-
-        // アカウント切り替え機能
-        function switchAccount(accountType) {
-            currentAccount = accountType;
-            
-            // アカウントボタンの状態更新
-            document.querySelectorAll('.account-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // 表示を更新
-            updateDisplay();
-            
-            // 現在のタブに応じて表示を更新
-            const activeTab = document.querySelector('.tab-btn.active').textContent;
-            if (activeTab.includes('月次')) {
-                updateMonthlyView();
-            } else if (activeTab.includes('年次')) {
-                updateYearlyView();
-            }
-        }
-
-        // タブ切り替え機能
-        function switchTab(tabName) {
-            // すべてのタブボタンとコンテンツを非アクティブに
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            // 選択されたタブをアクティブに
-            event.target.classList.add('active');
-            document.getElementById(tabName + 'Tab').classList.add('active');
-            
-            if (tabName === 'monthly') {
-                updateMonthlyView();
-            } else if (tabName === 'yearly') {
-                updateYearlyView();
-            }
-        }
-
-        // 現在のアカウントの取引データを取得
-        function getCurrentAccountTransactions() {
-            return transactions.filter(t => t.accountType === currentAccount);
-        }
-
-        // 月次データの更新
-        function updateMonthlyView() {
-            const monthlyData = getMonthlyData();
-            const monthlySummary = document.getElementById('monthlySummary');
-            
-            if (monthlyData.length === 0) {
-                monthlySummary.innerHTML = `
-                    <div class="empty-state">
-                        <div class="emoji">📅</div>
-                        <p>${currentAccount === 'personal' ? '個人' : '法人'}の月次データがありません。<br>日次管理で取引を記録してください。</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            monthlySummary.innerHTML = monthlyData.map(month => `
-                <div class="period-card ${currentAccount}">
-                    <h4>
-                        ${currentAccount === 'personal' ? '👤' : '🏢'} ${month.year}年${month.month}月
-                        <span class="account-badge ${currentAccount}">${currentAccount === 'personal' ? '個人' : '法人'}</span>
-                    </h4>
-                    <div class="period-stats">
-                        <span>収入:</span>
-                        <span class="amount income">¥${month.income.toLocaleString()}</span>
-                    </div>
-                    <div class="period-stats">
-                        <span>支出:</span>
-                        <span class="amount expense">¥${month.expense.toLocaleString()}</span>
-                    </div>
-                    <div class="period-stats">
-                        <span>残高:</span>
-                        <span class="amount" style="color: ${month.balance >= 0 ? '#28a745' : '#dc3545'}">
-                            ¥${month.balance.toLocaleString()}
-                        </span>
-                    </div>
-                    <div class="period-stats">
-                        <span>取引数:</span>
-                        <span class="amount">${month.count}件</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 年次データの更新
-        function updateYearlyView() {
-            const yearlyData = getYearlyData();
-            const yearlySummary = document.getElementById('yearlySummary');
-            
-            if (yearlyData.length === 0) {
-                yearlySummary.innerHTML = `
-                    <div class="empty-state">
-                        <div class="emoji">📈</div>
-                        <p>${currentAccount === 'personal' ? '個人' : '法人'}の年次データがありません。<br>日次管理で取引を記録してください。</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            yearlySummary.innerHTML = yearlyData.map(year => `
-                <div class="period-card ${currentAccount}">
-                    <h4>
-                        ${currentAccount === 'personal' ? '👤' : '🏢'} ${year.year}年
-                        <span class="account-badge ${currentAccount}">${currentAccount === 'personal' ? '個人' : '法人'}</span>
-                    </h4>
-                    <div class="period-stats">
-                        <span>収入:</span>
-                        <span class="amount income">¥${year.income.toLocaleString()}</span>
-                    </div>
-                    <div class="period-stats">
-                        <span>支出:</span>
-                        <span class="amount expense">¥${year.expense.toLocaleString()}</span>
-                    </div>
-                    <div class="period-stats">
-                        <span>残高:</span>
-                        <span class="amount" style="color: ${year.balance >= 0 ? '#28a745' : '#dc3545'}">
-                            ¥${year.balance.toLocaleString()}
-                        </span>
-                    </div>
-                    <div class="period-stats">
-                        <span>取引数:</span>
-                        <span class="amount">${year.count}件</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 月次データの集計
-        function getMonthlyData() {
-            const accountTransactions = getCurrentAccountTransactions();
-            const monthlyMap = new Map();
-            
-            accountTransactions.forEach(transaction => {
-                const date = new Date(transaction.date);
-                const key = `${date.getFullYear()}-${date.getMonth() + 1}`;
-                
-                if (!monthlyMap.has(key)) {
-                    monthlyMap.set(key, {
-                        year: date.getFullYear(),
-                        month: date.getMonth() + 1,
-                        income: 0,
-                        expense: 0,
-                        count: 0
-                    });
-                }
-                
-                const monthData = monthlyMap.get(key);
-                if (transaction.type === 'income') {
-                    monthData.income += transaction.amount;
-                } else {
-                    monthData.expense += transaction.amount;
-                }
-                monthData.count++;
-            });
-            
-            // 月次データを配列に変換し、新しい順にソート
-            return Array.from(monthlyMap.values())
-                .map(month => ({
-                    ...month,
-                    balance: month.income - month.expense
-                }))
-                .sort((a, b) => {
-                    if (a.year !== b.year) return b.year - a.year;
-                    return b.month - a.month;
-                });
-        }
-
-        // 年次データの集計
-        function getYearlyData() {
-            const accountTransactions = getCurrentAccountTransactions();
-            const yearlyMap = new Map();
-            
-            accountTransactions.forEach(transaction => {
-                const date = new Date(transaction.date);
-                const year = date.getFullYear();
-                
-                if (!yearlyMap.has(year)) {
-                    yearlyMap.set(year, {
-                        year: year,
-                        income: 0,
-                        expense: 0,
-                        count: 0
-                    });
-                }
-                
-                const yearData = yearlyMap.get(year);
-                if (transaction.type === 'income') {
-                    yearData.income += transaction.amount;
-                } else {
-                    yearData.expense += transaction.amount;
-                }
-                yearData.count++;
-            });
-            
-            // 年次データを配列に変換し、新しい順にソート
-            return Array.from(yearlyMap.values())
-                .map(year => ({
-                    ...year,
-                    balance: year.income - year.expense
-                }))
-                .sort((a, b) => b.year - a.year);
-        }
 
         function setIncomeMode(mode) {
             currentIncomeMode = mode;
@@ -1056,6 +682,67 @@
             document.getElementById('calculatedAmount').textContent = `計算結果: ¥${calculatedAmount.toLocaleString()}`;
         }
 
+        // 入力履歴を保存する関数
+        function saveInputHistory(key, value) {
+            if (!value || value.trim() === '') return;
+            
+            let history = JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
+            
+            // 重複を削除
+            history = history.filter(item => item !== value);
+            
+            // 新しい値を先頭に追加
+            history.unshift(value);
+            
+            // 最大20件まで保持
+            if (history.length > 20) {
+                history = history.slice(0, 20);
+            }
+            
+            localStorage.setItem(`inputHistory_${key}`, JSON.stringify(history));
+            
+            // 候補リストを即座に更新
+            updateSuggestions(key);
+        }
+
+        // 入力履歴を取得する関数
+        function getInputHistory(key) {
+            return JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
+        }
+
+        // 候補リストを更新する関数
+        function updateSuggestions(historyKey) {
+            const fieldMap = {
+                'descriptions': 'description',
+                'amounts': 'amount',
+                'hourlyRates': 'hourlyRate',
+                'workHours': 'workHours'
+            };
+            
+            const fieldId = fieldMap[historyKey];
+            if (!fieldId) return;
+            
+            const datalist = document.getElementById(`${fieldId}_suggestions`);
+            if (!datalist) return;
+            
+            const history = getInputHistory(historyKey);
+            datalist.innerHTML = '';
+            
+            history.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                datalist.appendChild(option);
+            });
+        }
+
+        // 全ての候補リストを初期化
+        function initializeSuggestions() {
+            updateSuggestions('descriptions');
+            updateSuggestions('amounts');
+            updateSuggestions('hourlyRates');
+            updateSuggestions('workHours');
+        }
+
         function addTransaction() {
             const description = document.getElementById('description').value;
             const type = document.getElementById('type').value;
@@ -1086,8 +773,10 @@
             if (currentIncomeMode === 'manual') {
                 saveInputHistory('amounts', amount.toString());
             } else {
-                saveInputHistory('hourlyRates', document.getElementById('hourlyRate').value);
-                saveInputHistory('workHours', document.getElementById('workHours').value);
+                const hourlyRateValue = document.getElementById('hourlyRate').value;
+                const workHoursValue = document.getElementById('workHours').value;
+                if (hourlyRateValue) saveInputHistory('hourlyRates', hourlyRateValue);
+                if (workHoursValue) saveInputHistory('workHours', workHoursValue);
             }
 
             // 日付が入力されていない場合は今日の日付を使用
@@ -1101,7 +790,6 @@
                 category,
                 date: selectedDate.toLocaleDateString('ja-JP'),
                 detailInfo, // 時給計算の詳細情報
-                accountType: currentAccount, // アカウント種別を追加
                 receipt: null
             };
 
@@ -1115,81 +803,6 @@
             } else {
                 saveTransaction(transaction);
             }
-        }
-
-        // 入力履歴を保存する関数
-        function saveInputHistory(key, value) {
-            if (!value || value.trim() === '') return;
-            
-            let history = JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
-            
-            // 重複を削除
-            history = history.filter(item => item !== value);
-            
-            // 新しい値を先頭に追加
-            history.unshift(value);
-            
-            // 最大20件まで保持
-            if (history.length > 20) {
-                history = history.slice(0, 20);
-            }
-            
-            localStorage.setItem(`inputHistory_${key}`, JSON.stringify(history));
-        }
-
-        // 入力履歴を取得する関数
-        function getInputHistory(key) {
-            return JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
-        }
-
-        // オートコンプリート機能を設定
-        function setupAutoComplete() {
-            // 項目名のオートコンプリート
-            setupInputSuggestions('description', 'descriptions');
-            
-            // 金額のオートコンプリート
-            setupInputSuggestions('amount', 'amounts');
-            
-            // 時給のオートコンプリート
-            setupInputSuggestions('hourlyRate', 'hourlyRates');
-            
-            // 時間数のオートコンプリート
-            setupInputSuggestions('workHours', 'workHours');
-        }
-
-        // 入力候補を設定する関数
-        function setupInputSuggestions(inputId, historyKey) {
-            const input = document.getElementById(inputId);
-            if (!input) return;
-
-            // datalist要素を作成
-            const datalistId = `${inputId}_suggestions`;
-            let datalist = document.getElementById(datalistId);
-            
-            if (!datalist) {
-                datalist = document.createElement('datalist');
-                datalist.id = datalistId;
-                input.parentNode.appendChild(datalist);
-                input.setAttribute('list', datalistId);
-            }
-
-            // 履歴を取得してoption要素を作成
-            function updateSuggestions() {
-                const history = getInputHistory(historyKey);
-                datalist.innerHTML = '';
-                
-                history.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    datalist.appendChild(option);
-                });
-            }
-
-            // 初期表示
-            updateSuggestions();
-
-            // フォーカス時に候補を更新
-            input.addEventListener('focus', updateSuggestions);
         }
 
         function saveTransaction(transaction) {
@@ -1213,13 +826,11 @@
         }
 
         function updateSummary() {
-            const accountTransactions = getCurrentAccountTransactions();
-            
-            const totalIncome = accountTransactions
+            const totalIncome = transactions
                 .filter(t => t.type === 'income')
                 .reduce((sum, t) => sum + t.amount, 0);
             
-            const totalExpense = accountTransactions
+            const totalExpense = transactions
                 .filter(t => t.type === 'expense')
                 .reduce((sum, t) => sum + t.amount, 0);
             
@@ -1231,28 +842,22 @@
         }
 
         function updateHistory() {
-            const accountTransactions = getCurrentAccountTransactions();
             const historyList = document.getElementById('historyList');
             
-            if (accountTransactions.length === 0) {
+            if (transactions.length === 0) {
                 historyList.innerHTML = `
                     <div class="empty-state">
                         <div class="emoji">📝</div>
-                        <p>${currentAccount === 'personal' ? '個人' : '法人'}の取引記録がありません。<br>上のフォームから収支を記録してみましょう！</p>
+                        <p>まだ取引記録がありません。<br>上のフォームから収支を記録してみましょう！</p>
                     </div>
                 `;
                 return;
             }
 
-            historyList.innerHTML = accountTransactions.map(transaction => `
+            historyList.innerHTML = transactions.map(transaction => `
                 <div class="history-item">
                     <div class="item-info">
-                        <div class="item-description">
-                            ${transaction.description}
-                            <span class="account-badge ${transaction.accountType}">
-                                ${transaction.accountType === 'personal' ? '個人' : '法人'}
-                            </span>
-                        </div>
+                        <div class="item-description">${transaction.description}</div>
                         <div class="item-details">
                             ${transaction.date} • ${transaction.category}
                             ${transaction.detailInfo ? `<br>📊 ${transaction.detailInfo}` : ''}
@@ -1324,11 +929,8 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date').value = today;
             
-            // 既存データのマイグレーション
-            migrateExistingData();
-            
-            // オートコンプリート機能を設定
-            setupAutoComplete();
+            // 入力候補を初期化
+            initializeSuggestions();
             
             toggleIncomeMode(); // 初期状態で収入モードセクションを表示
             updateDisplay();
