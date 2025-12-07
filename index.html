@@ -85,11 +85,11 @@
 
         .form-group input,
         .form-group select {
-            padding: 10px;
+            padding: 10px 12px;
             border: 2px solid #e1e5e9;
             border-radius: 8px;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease;
             width: 100%;
             box-sizing: border-box;
         }
@@ -99,78 +99,6 @@
             outline: none;
             border-color: #4CAF50;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-
-        .income-mode-section {
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #e8f5e8;
-            border-radius: 8px;
-            border: 1px solid #c8e6c9;
-        }
-
-        .income-mode-section h4 {
-            margin-bottom: 10px;
-            color: #2e7d32;
-            font-size: 0.9rem;
-        }
-
-        .toggle-buttons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .toggle-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: 2px solid #4CAF50;
-            background: white;
-            color: #4CAF50;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-btn.active {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .toggle-btn:hover {
-            background: #45a049;
-            color: white;
-        }
-
-        .hourly-section {
-            background: #f0f8f0;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #c8e6c9;
-        }
-
-        .hourly-section h4 {
-            margin-bottom: 10px;
-            color: #2e7d32;
-            font-size: 0.9rem;
-        }
-
-        .hourly-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .calculated-amount {
-            font-weight: bold;
-            color: #2e7d32;
-            text-align: center;
-            padding: 8px;
-            background: white;
-            border-radius: 6px;
-            font-size: 0.9rem;
         }
 
         .button-group {
@@ -204,53 +132,39 @@
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            background: #6c757d;
             color: white;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
         }
 
         .btn-secondary:hover {
+            background: #5a6268;
             transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(33, 150, 243, 0.4);
         }
 
         .summary-section {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             width: 100%;
         }
 
         .summary-card {
             background: white;
-            padding: 15px 10px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid;
+            border-left: 4px solid #4CAF50;
             width: 100%;
             box-sizing: border-box;
         }
 
-        .summary-card.income {
-            border-left-color: #4CAF50;
-        }
-
-        .summary-card.expense {
-            border-left-color: #f44336;
-        }
-
-        .summary-card.balance {
-            border-left-color: #2196F3;
-        }
-
         .summary-card h3 {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #666;
             margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         .summary-card .amount {
@@ -318,14 +232,14 @@
         .item-description {
             font-weight: 600;
             color: #333;
-            margin-bottom: 4px;
             font-size: 0.9rem;
+            margin-bottom: 4px;
         }
 
         .item-details {
             font-size: 0.75rem;
             color: #666;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .item-actions {
@@ -339,7 +253,6 @@
         .item-amount {
             font-weight: 700;
             font-size: 1rem;
-            flex-shrink: 0;
         }
 
         .item-amount.income {
@@ -350,57 +263,110 @@
             color: #f44336;
         }
 
-        .receipt-image {
-            width: 30px;
-            height: 30px;
-            object-fit: cover;
-            border-radius: 4px;
-            cursor: pointer;
-            border: 1px solid #ddd;
-            flex-shrink: 0;
+        .hourly-section {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e3f2fd;
         }
 
-        .delete-btn {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            flex-shrink: 0;
+        .hourly-section h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
         }
 
-        .delete-btn:hover {
-            background: #d32f2f;
+        .hourly-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .empty-state {
+        .calculated-amount {
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 2px solid #4CAF50;
+            color: #2e7d32;
+            font-weight: bold;
             text-align: center;
-            padding: 40px 20px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-mode-toggle {
+            display: flex;
+            background: #e1e5e9;
+            border-radius: 20px;
+            padding: 3px;
+            margin-bottom: 10px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 17px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
             color: #666;
         }
 
-        .empty-state .emoji {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .empty-state p {
-            font-size: 0.9rem;
-            line-height: 1.5;
+        .toggle-btn.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
         }
 
         .image-preview {
-            margin-top: 10px;
+            margin-top: 8px;
+            width: 100%;
         }
 
         .image-preview img {
             max-width: 100%;
             max-height: 150px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        .receipt-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #ddd;
+            margin-right: 8px;
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            color: #666;
+        }
+
+        .empty-state .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
 
         .modal {
@@ -411,14 +377,16 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0,0,0,0.8);
         }
 
         .modal-content {
-            position: relative;
-            margin: 5% auto;
-            max-width: 90%;
-            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 95%;
+            max-height: 95%;
         }
 
         .modal-content img {
@@ -429,16 +397,16 @@
 
         .close-modal {
             position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 35px;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
             font-weight: bold;
             cursor: pointer;
         }
 
         .close-modal:hover {
-            opacity: 0.7;
+            color: #bbb;
         }
 
         /* タブレット以上 */
@@ -538,11 +506,11 @@
                             <option value="expense">支出</option>
                         </select>
                     </div>
-
-                    <!-- 収入モード選択 -->
-                    <div class="income-mode-section" id="incomeModeSection" style="display: none;">
-                        <h4>💰 収入の入力方法</h4>
-                        <div class="toggle-buttons">
+                    
+                    <!-- 収入モード切り替え -->
+                    <div class="form-group" id="incomeModeSection" style="display: block;">
+                        <label>💼 収入入力方法</label>
+                        <div class="input-mode-toggle">
                             <button type="button" class="toggle-btn active" onclick="setIncomeMode('manual')">直接入力</button>
                             <button type="button" class="toggle-btn" onclick="setIncomeMode('hourly')">時給計算</button>
                         </div>
@@ -682,67 +650,6 @@
             document.getElementById('calculatedAmount').textContent = `計算結果: ¥${calculatedAmount.toLocaleString()}`;
         }
 
-        // 入力履歴を保存する関数
-        function saveInputHistory(key, value) {
-            if (!value || value.trim() === '') return;
-            
-            let history = JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
-            
-            // 重複を削除
-            history = history.filter(item => item !== value);
-            
-            // 新しい値を先頭に追加
-            history.unshift(value);
-            
-            // 最大20件まで保持
-            if (history.length > 20) {
-                history = history.slice(0, 20);
-            }
-            
-            localStorage.setItem(`inputHistory_${key}`, JSON.stringify(history));
-            
-            // 候補リストを即座に更新
-            updateSuggestions(key);
-        }
-
-        // 入力履歴を取得する関数
-        function getInputHistory(key) {
-            return JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
-        }
-
-        // 候補リストを更新する関数
-        function updateSuggestions(historyKey) {
-            const fieldMap = {
-                'descriptions': 'description',
-                'amounts': 'amount',
-                'hourlyRates': 'hourlyRate',
-                'workHours': 'workHours'
-            };
-            
-            const fieldId = fieldMap[historyKey];
-            if (!fieldId) return;
-            
-            const datalist = document.getElementById(`${fieldId}_suggestions`);
-            if (!datalist) return;
-            
-            const history = getInputHistory(historyKey);
-            datalist.innerHTML = '';
-            
-            history.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item;
-                datalist.appendChild(option);
-            });
-        }
-
-        // 全ての候補リストを初期化
-        function initializeSuggestions() {
-            updateSuggestions('descriptions');
-            updateSuggestions('amounts');
-            updateSuggestions('hourlyRates');
-            updateSuggestions('workHours');
-        }
-
         function addTransaction() {
             const description = document.getElementById('description').value;
             const type = document.getElementById('type').value;
@@ -803,6 +710,67 @@
             } else {
                 saveTransaction(transaction);
             }
+        }
+
+        // 入力履歴を保存する関数
+        function saveInputHistory(key, value) {
+            if (!value || value.trim() === '') return;
+            
+            let history = JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
+            
+            // 重複を削除
+            history = history.filter(item => item !== value);
+            
+            // 新しい値を先頭に追加
+            history.unshift(value);
+            
+            // 最大20件まで保持
+            if (history.length > 20) {
+                history = history.slice(0, 20);
+            }
+            
+            localStorage.setItem(`inputHistory_${key}`, JSON.stringify(history));
+            
+            // 候補リストを即座に更新
+            updateSuggestions(key);
+        }
+
+        // 入力履歴を取得する関数
+        function getInputHistory(key) {
+            return JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
+        }
+
+        // 候補リストを更新する関数
+        function updateSuggestions(historyKey) {
+            const fieldMap = {
+                'descriptions': 'description',
+                'amounts': 'amount',
+                'hourlyRates': 'hourlyRate',
+                'workHours': 'workHours'
+            };
+            
+            const fieldId = fieldMap[historyKey];
+            if (!fieldId) return;
+            
+            const datalist = document.getElementById(`${fieldId}_suggestions`);
+            if (!datalist) return;
+            
+            const history = getInputHistory(historyKey);
+            datalist.innerHTML = '';
+            
+            history.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                datalist.appendChild(option);
+            });
+        }
+
+        // 全ての候補リストを初期化
+        function initializeSuggestions() {
+            updateSuggestions('descriptions');
+            updateSuggestions('amounts');
+            updateSuggestions('hourlyRates');
+            updateSuggestions('workHours');
         }
 
         function saveTransaction(transaction) {
