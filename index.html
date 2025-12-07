@@ -465,6 +465,10 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="date">📅 日付</label>
+                        <input type="date" id="date">
+                    </div>
+                    <div class="form-group">
                         <label for="category">🏷️ カテゴリ</label>
                         <select id="category">
                             <option value="食費">食費</option>
@@ -535,6 +539,7 @@
             const amount = parseFloat(document.getElementById('amount').value);
             const type = document.getElementById('type').value;
             const category = document.getElementById('category').value;
+            const dateInput = document.getElementById('date').value;
             const receiptFile = document.getElementById('receipt').files[0];
 
             if (!description || !amount) {
@@ -542,13 +547,16 @@
                 return;
             }
 
+            // 日付が入力されていない場合は今日の日付を使用
+            const selectedDate = dateInput ? new Date(dateInput) : new Date();
+
             const transaction = {
                 id: Date.now(),
                 description,
                 amount,
                 type,
                 category,
-                date: new Date().toLocaleDateString('ja-JP'),
+                date: selectedDate.toLocaleDateString('ja-JP'),
                 receipt: null
             };
 
@@ -635,6 +643,7 @@
             document.getElementById('amount').value = '';
             document.getElementById('type').value = 'income';
             document.getElementById('category').value = '食費';
+            document.getElementById('date').value = '';
             document.getElementById('receipt').value = '';
             document.getElementById('imagePreview').innerHTML = '';
         }
@@ -672,8 +681,12 @@
             }
         };
 
-        // 初期表示
-        updateDisplay();
+        // 初期化時に今日の日付をセット
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+            updateDisplay();
+        });
     </script>
 </body>
 </html>
