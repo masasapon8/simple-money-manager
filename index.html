@@ -86,7 +86,7 @@
 
         .form-group input,
         .form-group select {
-            padding: 10px 12px;
+            padding: 12px;
             border: 2px solid #e1e5e9;
             border-radius: 6px;
             font-size: 0.9rem;
@@ -102,164 +102,76 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
-        .account-type-toggle {
-            display: flex;
-            background: #e1e5e9;
-            border-radius: 20px;
-            padding: 3px;
+        .income-mode-section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #e8f5e8;
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
+        }
+
+        .income-mode-section h4 {
             margin-bottom: 10px;
+            color: #2e7d32;
+            font-size: 0.9rem;
         }
 
-        .account-toggle-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 17px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: transparent;
-            color: #666;
-        }
-
-        .account-toggle-btn.active {
-            background: #2196F3;
-            color: white;
-            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
-        }
-
-        .input-mode-toggle {
+        .toggle-buttons {
             display: flex;
-            background: #e1e5e9;
-            border-radius: 20px;
-            padding: 3px;
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .toggle-btn {
             flex: 1;
             padding: 8px 12px;
-            border: none;
-            border-radius: 17px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            border: 2px solid #4CAF50;
+            background: white;
+            color: #4CAF50;
+            border-radius: 6px;
             cursor: pointer;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
-            background: transparent;
-            color: #666;
         }
 
         .toggle-btn.active {
             background: #4CAF50;
             color: white;
-            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .toggle-btn:hover {
+            background: #45a049;
+            color: white;
         }
 
         .hourly-section {
-            background: #f0f8ff;
+            background: #f0f8f0;
             padding: 15px;
             border-radius: 8px;
-            border: 2px solid #e3f2fd;
-            margin-top: 10px;
+            margin-bottom: 15px;
         }
 
         .hourly-section h4 {
-            color: #1976d2;
-            margin-bottom: 10px;
+            color: #2e7d32;
+            margin-bottom: 12px;
             font-size: 0.9rem;
         }
 
         .hourly-inputs {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .calculated-amount {
-            background: #fff;
-            padding: 8px 12px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
             border-radius: 6px;
-            border: 2px solid #4CAF50;
-            color: #2e7d32;
-            font-weight: bold;
             text-align: center;
-            margin-top: 8px;
-            font-size: 0.9rem;
-        }
-
-        .image-preview {
-            margin-top: 8px;
-            width: 100%;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 入力履歴機能のスタイル */
-        .input-history-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 2px solid #e1e5e9;
-            border-top: none;
-            border-radius: 0 0 6px 6px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-        }
-
-        .history-item-suggestion {
-            padding: 8px 12px;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 0.85rem;
-            transition: background-color 0.2s ease;
-        }
-
-        .history-item-suggestion:hover {
-            background-color: #f8f9fa;
-        }
-
-        .history-item-suggestion:last-child {
-            border-bottom: none;
-        }
-
-        .history-item-suggestion .suggestion-main {
             font-weight: 600;
-            color: #333;
-        }
-
-        .history-item-suggestion .suggestion-details {
-            font-size: 0.75rem;
-            color: #666;
-            margin-top: 2px;
-        }
-
-        .history-toggle-btn {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 0.8rem;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-        }
-
-        .history-toggle-btn:hover {
-            background-color: #f0f0f0;
+            font-size: 0.9rem;
         }
 
         .button-group {
@@ -293,13 +205,14 @@
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
         }
 
         .btn-secondary:hover {
-            background: #5a6268;
             transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(33, 150, 243, 0.4);
         }
 
         .summary-section {
@@ -310,72 +223,35 @@
             width: 100%;
         }
 
-        .tab-navigation {
-            display: flex;
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 4px;
-            margin-bottom: 15px;
-            gap: 4px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 6px;
-            background: transparent;
-            color: #666;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn.active {
-            background: #4CAF50;
-            color: white;
-            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .tab-content.active {
-            display: flex;
-        }
-
-        .period-selector {
-            margin-bottom: 10px;
-        }
-
-        .period-selector select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            background: white;
-        }
-
         .summary-card {
             background: white;
-            padding: 20px 15px;
+            padding: 15px 10px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #4CAF50;
+            border-left: 4px solid;
             width: 100%;
+            box-sizing: border-box;
+        }
+
+        .summary-card.income {
+            border-left-color: #4CAF50;
+        }
+
+        .summary-card.expense {
+            border-left-color: #f44336;
+        }
+
+        .summary-card.balance {
+            border-left-color: #2196F3;
         }
 
         .summary-card h3 {
+            font-size: 0.8rem;
             color: #666;
-            font-size: 0.85rem;
             margin-bottom: 8px;
-            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .summary-card .amount {
@@ -394,14 +270,6 @@
 
         .summary-card.balance .amount {
             color: #2196F3;
-        }
-
-        .summary-card.personal {
-            border-left-color: #2196F3;
-        }
-
-        .summary-card.corporate {
-            border-left-color: #FF9800;
         }
 
         .history-section {
@@ -444,14 +312,6 @@
             border-bottom: none;
         }
 
-        .history-item.personal {
-            border-left: 3px solid #2196F3;
-        }
-
-        .history-item.corporate {
-            border-left: 3px solid #FF9800;
-        }
-
         .item-info {
             flex: 1;
         }
@@ -467,25 +327,6 @@
             font-size: 0.75rem;
             color: #666;
             line-height: 1.4;
-        }
-
-        .account-badge {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 5px;
-        }
-
-        .account-badge.personal {
-            background: #e3f2fd;
-            color: #1976d2;
-        }
-
-        .account-badge.corporate {
-            background: #fff3e0;
-            color: #f57c00;
         }
 
         .item-actions {
@@ -509,9 +350,24 @@
             color: #f44336;
         }
 
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #d32f2f;
+        }
+
         .receipt-image {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             object-fit: cover;
             border-radius: 4px;
             cursor: pointer;
@@ -523,19 +379,15 @@
             transform: scale(1.1);
         }
 
-        .delete-btn {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .image-preview {
+            margin-top: 10px;
         }
 
-        .delete-btn:hover {
-            background: #d32f2f;
+        .image-preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .empty-state {
@@ -566,37 +418,85 @@
         }
 
         .modal-content {
-            position: relative;
-            margin: 5% auto;
-            padding: 0;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
         }
 
         .modal-content img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
+            width: 100%;
+            height: auto;
             border-radius: 8px;
         }
 
         .close-modal {
             position: absolute;
-            top: -40px;
-            right: 0;
+            top: 5px;
+            right: 15px;
             color: white;
-            font-size: 35px;
+            font-size: 25px;
             font-weight: bold;
             cursor: pointer;
             z-index: 1001;
         }
 
-        .close-modal:hover {
-            opacity: 0.7;
+        /* 入力履歴機能のスタイル */
+        .input-history-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .history-item-suggestion {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.85rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .history-item-suggestion:hover {
+            background-color: #f8f9fa;
+        }
+
+        .history-item-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        .history-item-suggestion .suggestion-main {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .history-toggle-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .history-toggle-btn:hover {
+            background-color: #f0f0f0;
         }
 
         /* タブレット以上 */
@@ -641,19 +541,10 @@
                 flex-direction: row;
             }
 
-            .tab-content {
-                display: none;
+            .summary-section {
+                display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 15px;
-            }
-
-            .tab-content.active {
-                display: grid;
-            }
-
-            .period-selector {
-                grid-column: 1 / -1;
-                margin-bottom: 10px;
             }
 
             .summary-card {
@@ -693,18 +584,9 @@
             <!-- 入力セクション -->
             <div class="input-section">
                 <div class="input-group">
-                    <!-- 個人・法人切り替え -->
-                    <div class="form-group">
-                        <label>👤 アカウント種別</label>
-                        <div class="account-type-toggle">
-                            <button type="button" class="account-toggle-btn active" onclick="setAccountType('personal')">個人</button>
-                            <button type="button" class="account-toggle-btn" onclick="setAccountType('corporate')">法人</button>
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <label for="description">📝 項目名</label>
-                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など" 
+                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など"
                                oninput="showInputHistory('description')" 
                                onblur="hideInputHistory('description')"
                                onfocus="showInputHistory('description')">
@@ -718,11 +600,11 @@
                             <option value="expense">支出</option>
                         </select>
                     </div>
-                    
-                    <!-- 収入モード切り替え -->
-                    <div class="form-group" id="incomeModeSection" style="display: block;">
-                        <label>💼 収入入力方法</label>
-                        <div class="input-mode-toggle">
+
+                    <!-- 収入モード選択 -->
+                    <div class="income-mode-section" id="incomeModeSection" style="display: none;">
+                        <h4>💰 収入の入力方法を選択</h4>
+                        <div class="toggle-buttons">
                             <button type="button" class="toggle-btn active" onclick="setIncomeMode('manual')">直接入力</button>
                             <button type="button" class="toggle-btn" onclick="setIncomeMode('hourly')">時給計算</button>
                         </div>
@@ -770,7 +652,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category">🏷️ カテゴリ</label>
-                        <select id="category" onchange="showInputHistory('category')">
+                        <select id="category">
                             <option value="食費">食費</option>
                             <option value="交通費">交通費</option>
                             <option value="娯楽">娯楽</option>
@@ -778,7 +660,6 @@
                             <option value="給料">給料</option>
                             <option value="その他">その他</option>
                         </select>
-                        <div class="input-history-dropdown" id="categoryHistory"></div>
                     </div>
                     <div class="form-group">
                         <label for="receipt">📷 レシート画像（任意）</label>
@@ -795,93 +676,17 @@
 
             <!-- サマリーセクション -->
             <div class="summary-section">
-                <!-- タブナビゲーション -->
-                <div class="tab-navigation">
-                    <button class="tab-btn active" onclick="switchTab('all')">全期間</button>
-                    <button class="tab-btn" onclick="switchTab('monthly')">月別</button>
-                    <button class="tab-btn" onclick="switchTab('yearly')">年別</button>
+                <div class="summary-card income">
+                    <h3>📈 総収入</h3>
+                    <div class="amount" id="totalIncome">¥0</div>
                 </div>
-
-                <!-- 全期間タブ -->
-                <div id="allTab" class="tab-content active">
-                    <div class="summary-card income">
-                        <h3>📈 総収入</h3>
-                        <div class="amount" id="totalIncome">¥0</div>
-                    </div>
-                    <div class="summary-card expense">
-                        <h3>📉 総支出</h3>
-                        <div class="amount" id="totalExpense">¥0</div>
-                    </div>
-                    <div class="summary-card balance">
-                        <h3>💰 残高</h3>
-                        <div class="amount" id="balance">¥0</div>
-                    </div>
-                    <div class="summary-card personal">
-                        <h3>👤 個人収支</h3>
-                        <div class="amount" id="personalBalance">¥0</div>
-                    </div>
-                    <div class="summary-card corporate">
-                        <h3>🏢 法人収支</h3>
-                        <div class="amount" id="corporateBalance">¥0</div>
-                    </div>
+                <div class="summary-card expense">
+                    <h3>📉 総支出</h3>
+                    <div class="amount" id="totalExpense">¥0</div>
                 </div>
-
-                <!-- 月別タブ -->
-                <div id="monthlyTab" class="tab-content">
-                    <div class="period-selector">
-                        <select id="monthSelector" onchange="updateMonthlyDisplay()">
-                            <!-- 動的に生成 -->
-                        </select>
-                    </div>
-                    <div class="summary-card income">
-                        <h3>📈 月間収入</h3>
-                        <div class="amount" id="monthlyIncome">¥0</div>
-                    </div>
-                    <div class="summary-card expense">
-                        <h3>📉 月間支出</h3>
-                        <div class="amount" id="monthlyExpense">¥0</div>
-                    </div>
-                    <div class="summary-card balance">
-                        <h3>💰 月間収支</h3>
-                        <div class="amount" id="monthlyBalance">¥0</div>
-                    </div>
-                    <div class="summary-card personal">
-                        <h3>👤 個人月間収支</h3>
-                        <div class="amount" id="monthlyPersonalBalance">¥0</div>
-                    </div>
-                    <div class="summary-card corporate">
-                        <h3>🏢 法人月間収支</h3>
-                        <div class="amount" id="monthlyCorporateBalance">¥0</div>
-                    </div>
-                </div>
-
-                <!-- 年別タブ -->
-                <div id="yearlyTab" class="tab-content">
-                    <div class="period-selector">
-                        <select id="yearSelector" onchange="updateYearlyDisplay()">
-                            <!-- 動的に生成 -->
-                        </select>
-                    </div>
-                    <div class="summary-card income">
-                        <h3>📈 年間収入</h3>
-                        <div class="amount" id="yearlyIncome">¥0</div>
-                    </div>
-                    <div class="summary-card expense">
-                        <h3>📉 年間支出</h3>
-                        <div class="amount" id="yearlyExpense">¥0</div>
-                    </div>
-                    <div class="summary-card balance">
-                        <h3>💰 年間収支</h3>
-                        <div class="amount" id="yearlyBalance">¥0</div>
-                    </div>
-                    <div class="summary-card personal">
-                        <h3>👤 個人年間収支</h3>
-                        <div class="amount" id="yearlyPersonalBalance">¥0</div>
-                    </div>
-                    <div class="summary-card corporate">
-                        <h3>🏢 法人年間収支</h3>
-                        <div class="amount" id="yearlyCorporateBalance">¥0</div>
-                    </div>
+                <div class="summary-card balance">
+                    <h3>💰 残高</h3>
+                    <div class="amount" id="balance">¥0</div>
                 </div>
             </div>
 
@@ -918,70 +723,6 @@
             category: []
         };
         let currentIncomeMode = 'manual'; // 'manual' or 'hourly'
-        let currentAccountType = 'personal'; // 'personal' or 'corporate'
-        let currentTab = 'all';
-
-        function setAccountType(type) {
-            currentAccountType = type;
-            
-            // トグルボタンの状態更新
-            document.querySelectorAll('.account-toggle-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function setIncomeMode(mode) {
-            currentIncomeMode = mode;
-            
-            // トグルボタンの状態更新
-            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // セクションの表示切り替え
-            if (mode === 'manual') {
-                document.getElementById('manualAmountSection').style.display = 'block';
-                document.getElementById('hourlySection').style.display = 'none';
-            } else {
-                document.getElementById('manualAmountSection').style.display = 'none';
-                document.getElementById('hourlySection').style.display = 'block';
-            }
-        }
-
-        function toggleIncomeMode() {
-            const type = document.getElementById('type').value;
-            const incomeModeSection = document.getElementById('incomeModeSection');
-            
-            if (type === 'income') {
-                incomeModeSection.style.display = 'block';
-            } else {
-                incomeModeSection.style.display = 'none';
-                // 支出の場合は直接入力モードに戻す
-                setIncomeMode('manual');
-                document.querySelector('.toggle-btn').classList.add('active');
-            }
-        }
-
-        function calculateHourlyAmount() {
-            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
-            const workHours = parseFloat(document.getElementById('workHours').value) || 0;
-            const calculatedAmount = hourlyRate * workHours;
-            
-            document.getElementById('calculatedAmount').textContent = `計算結果: ¥${calculatedAmount.toLocaleString()}`;
-        }
-
-        function switchTab(tab) {
-            currentTab = tab;
-            
-            // タブボタンの状態更新
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // タブコンテンツの表示切り替え
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.getElementById(tab + 'Tab').classList.add('active');
-            
-            // 表示更新
-            updateDisplay();
-        }
 
         // 入力履歴機能
         function saveInputHistory(field, value) {
@@ -1065,6 +806,45 @@
             }
         }
 
+        function setIncomeMode(mode) {
+            currentIncomeMode = mode;
+            
+            // トグルボタンの状態更新
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // セクションの表示切り替え
+            if (mode === 'manual') {
+                document.getElementById('manualAmountSection').style.display = 'block';
+                document.getElementById('hourlySection').style.display = 'none';
+            } else {
+                document.getElementById('manualAmountSection').style.display = 'none';
+                document.getElementById('hourlySection').style.display = 'block';
+            }
+        }
+
+        function toggleIncomeMode() {
+            const type = document.getElementById('type').value;
+            const incomeModeSection = document.getElementById('incomeModeSection');
+            
+            if (type === 'income') {
+                incomeModeSection.style.display = 'block';
+            } else {
+                incomeModeSection.style.display = 'none';
+                // 支出の場合は直接入力モードに戻す
+                setIncomeMode('manual');
+                document.querySelector('.toggle-btn').classList.add('active');
+            }
+        }
+
+        function calculateHourlyAmount() {
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+            const workHours = parseFloat(document.getElementById('workHours').value) || 0;
+            const calculatedAmount = hourlyRate * workHours;
+            
+            document.getElementById('calculatedAmount').textContent = `計算結果: ¥${calculatedAmount.toLocaleString()}`;
+        }
+
         function addTransaction() {
             const description = document.getElementById('description').value;
             const type = document.getElementById('type').value;
@@ -1108,7 +888,6 @@
                 amount,
                 type,
                 category,
-                accountType: currentAccountType, // 個人・法人の区別を追加
                 date: selectedDate.toLocaleDateString('ja-JP'),
                 detailInfo, // 時給計算の詳細情報
                 receipt: null
@@ -1144,13 +923,6 @@
         function updateDisplay() {
             updateSummary();
             updateHistory();
-            updatePeriodSelectors();
-            
-            if (currentTab === 'monthly') {
-                updateMonthlyDisplay();
-            } else if (currentTab === 'yearly') {
-                updateYearlyDisplay();
-            }
         }
 
         function updateSummary() {
@@ -1164,175 +936,9 @@
             
             const balance = totalIncome - totalExpense;
 
-            // 個人・法人別の計算
-            const personalIncome = transactions
-                .filter(t => t.type === 'income' && t.accountType === 'personal')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const personalExpense = transactions
-                .filter(t => t.type === 'expense' && t.accountType === 'personal')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const corporateIncome = transactions
-                .filter(t => t.type === 'income' && t.accountType === 'corporate')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const corporateExpense = transactions
-                .filter(t => t.type === 'expense' && t.accountType === 'corporate')
-                .reduce((sum, t) => sum + t.amount, 0);
-
-            const personalBalance = personalIncome - personalExpense;
-            const corporateBalance = corporateIncome - corporateExpense;
-
             document.getElementById('totalIncome').textContent = `¥${totalIncome.toLocaleString()}`;
             document.getElementById('totalExpense').textContent = `¥${totalExpense.toLocaleString()}`;
             document.getElementById('balance').textContent = `¥${balance.toLocaleString()}`;
-            document.getElementById('personalBalance').textContent = `¥${personalBalance.toLocaleString()}`;
-            document.getElementById('corporateBalance').textContent = `¥${corporateBalance.toLocaleString()}`;
-        }
-
-        function updatePeriodSelectors() {
-            updateMonthSelector();
-            updateYearSelector();
-        }
-
-        function updateMonthSelector() {
-            const monthSelector = document.getElementById('monthSelector');
-            const months = new Set();
-            
-            transactions.forEach(t => {
-                const date = new Date(t.date);
-                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-                months.add(monthKey);
-            });
-            
-            const sortedMonths = Array.from(months).sort().reverse();
-            
-            monthSelector.innerHTML = sortedMonths.map(month => {
-                const [year, monthNum] = month.split('-');
-                return `<option value="${month}">${year}年${monthNum}月</option>`;
-            }).join('');
-            
-            if (sortedMonths.length === 0) {
-                monthSelector.innerHTML = '<option value="">データなし</option>';
-            }
-        }
-
-        function updateYearSelector() {
-            const yearSelector = document.getElementById('yearSelector');
-            const years = new Set();
-            
-            transactions.forEach(t => {
-                const date = new Date(t.date);
-                years.add(date.getFullYear());
-            });
-            
-            const sortedYears = Array.from(years).sort().reverse();
-            
-            yearSelector.innerHTML = sortedYears.map(year => 
-                `<option value="${year}">${year}年</option>`
-            ).join('');
-            
-            if (sortedYears.length === 0) {
-                yearSelector.innerHTML = '<option value="">データなし</option>';
-            }
-        }
-
-        function updateMonthlyDisplay() {
-            const monthSelector = document.getElementById('monthSelector');
-            const selectedMonth = monthSelector.value;
-            
-            if (!selectedMonth) return;
-            
-            const [year, month] = selectedMonth.split('-');
-            const filteredTransactions = transactions.filter(t => {
-                const date = new Date(t.date);
-                return date.getFullYear() == year && (date.getMonth() + 1) == parseInt(month);
-            });
-            
-            const monthlyIncome = filteredTransactions
-                .filter(t => t.type === 'income')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const monthlyExpense = filteredTransactions
-                .filter(t => t.type === 'expense')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const monthlyBalance = monthlyIncome - monthlyExpense;
-
-            // 個人・法人別の月間計算
-            const monthlyPersonalIncome = filteredTransactions
-                .filter(t => t.type === 'income' && t.accountType === 'personal')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const monthlyPersonalExpense = filteredTransactions
-                .filter(t => t.type === 'expense' && t.accountType === 'personal')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const monthlyCorporateIncome = filteredTransactions
-                .filter(t => t.type === 'income' && t.accountType === 'corporate')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const monthlyCorporateExpense = filteredTransactions
-                .filter(t => t.type === 'expense' && t.accountType === 'corporate')
-                .reduce((sum, t) => sum + t.amount, 0);
-
-            const monthlyPersonalBalance = monthlyPersonalIncome - monthlyPersonalExpense;
-            const monthlyCorporateBalance = monthlyCorporateIncome - monthlyCorporateExpense;
-            
-            document.getElementById('monthlyIncome').textContent = `¥${monthlyIncome.toLocaleString()}`;
-            document.getElementById('monthlyExpense').textContent = `¥${monthlyExpense.toLocaleString()}`;
-            document.getElementById('monthlyBalance').textContent = `¥${monthlyBalance.toLocaleString()}`;
-            document.getElementById('monthlyPersonalBalance').textContent = `¥${monthlyPersonalBalance.toLocaleString()}`;
-            document.getElementById('monthlyCorporateBalance').textContent = `¥${monthlyCorporateBalance.toLocaleString()}`;
-        }
-
-        function updateYearlyDisplay() {
-            const yearSelector = document.getElementById('yearSelector');
-            const selectedYear = yearSelector.value;
-            
-            if (!selectedYear) return;
-            
-            const filteredTransactions = transactions.filter(t => {
-                const date = new Date(t.date);
-                return date.getFullYear() == selectedYear;
-            });
-            
-            const yearlyIncome = filteredTransactions
-                .filter(t => t.type === 'income')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const yearlyExpense = filteredTransactions
-                .filter(t => t.type === 'expense')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const yearlyBalance = yearlyIncome - yearlyExpense;
-
-            // 個人・法人別の年間計算
-            const yearlyPersonalIncome = filteredTransactions
-                .filter(t => t.type === 'income' && t.accountType === 'personal')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const yearlyPersonalExpense = filteredTransactions
-                .filter(t => t.type === 'expense' && t.accountType === 'personal')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const yearlyCorporateIncome = filteredTransactions
-                .filter(t => t.type === 'income' && t.accountType === 'corporate')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const yearlyCorporateExpense = filteredTransactions
-                .filter(t => t.type === 'expense' && t.accountType === 'corporate')
-                .reduce((sum, t) => sum + t.amount, 0);
-
-            const yearlyPersonalBalance = yearlyPersonalIncome - yearlyPersonalExpense;
-            const yearlyCorporateBalance = yearlyCorporateIncome - yearlyCorporateExpense;
-            
-            document.getElementById('yearlyIncome').textContent = `¥${yearlyIncome.toLocaleString()}`;
-            document.getElementById('yearlyExpense').textContent = `¥${yearlyExpense.toLocaleString()}`;
-            document.getElementById('yearlyBalance').textContent = `¥${yearlyBalance.toLocaleString()}`;
-            document.getElementById('yearlyPersonalBalance').textContent = `¥${yearlyPersonalBalance.toLocaleString()}`;
-            document.getElementById('yearlyCorporateBalance').textContent = `¥${yearlyCorporateBalance.toLocaleString()}`;
         }
 
         function updateHistory() {
@@ -1349,14 +955,9 @@
             }
 
             historyList.innerHTML = transactions.map(transaction => `
-                <div class="history-item ${transaction.accountType || 'personal'}">
+                <div class="history-item">
                     <div class="item-info">
-                        <div class="item-description">
-                            ${transaction.description}
-                            <span class="account-badge ${transaction.accountType || 'personal'}">
-                                ${transaction.accountType === 'corporate' ? '法人' : '個人'}
-                            </span>
-                        </div>
+                        <div class="item-description">${transaction.description}</div>
                         <div class="item-details">
                             ${transaction.date} • ${transaction.category}
                             ${transaction.detailInfo ? `<br>📊 ${transaction.detailInfo}` : ''}
