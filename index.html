@@ -3,247 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>シンプル収支管理</title>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+    <title>💰 シンプル収支管理</title>
     <style>
-        /* 既存のCSS + 追加スタイル */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-        
+
         .header {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
         }
-        
-        .balance {
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
             display: flex;
-            justify-content: space-around;
-            padding: 20px;
-            background: #f8f9fa;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
         
-        .balance-item {
-            text-align: center;
-        }
-        
-        .balance-amount {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-        
-        .income { color: #4CAF50; }
-        .expense { color: #f44336; }
-        .total { color: #2196F3; }
-        
-        .form-section {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .form-row > div {
-            flex: 1;
-        }
-        
-        button {
-            background: #4CAF50;
+        .nav-tab {
             color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-        }
-        
-        button:hover {
-            background: #45a049;
-        }
-        
-        .transactions {
-            padding: 20px;
-        }
-        
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .transaction-info {
-            flex: 1;
-        }
-        
-        .transaction-amount {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
             font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .transaction-date {
-            color: #666;
             font-size: 14px;
         }
         
-        .delete-btn {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-            width: auto;
+        .nav-tab:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
         
-        /* OCR機能用の追加スタイル */
-        .ocr-section {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
+        .nav-tab.active {
+            background: rgba(255,255,255,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .input-section {
             background: #f8f9fa;
-        }
-        
-        .upload-area {
-            border: 2px dashed #ddd;
-            border-radius: 10px;
             padding: 30px;
-            text-align: center;
-            margin: 15px 0;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
-        .upload-area:hover {
-            border-color: #4CAF50;
-            background: #f0f8f0;
+
+        .btn-income {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
         }
-        
-        .upload-area.dragover {
-            border-color: #4CAF50;
-            background: #e8f5e8;
+
+        .btn-expense {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: white;
         }
-        
-        #imageInput {
-            display: none;
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
-        .preview-container {
-            margin: 15px 0;
-            text-align: center;
+
+        .summary-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
-        
-        .preview-image {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .ocr-status {
-            margin: 15px 0;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .ocr-status.processing {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .ocr-status.success {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .ocr-status.error {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        .detected-amounts {
-            margin: 15px 0;
-            padding: 15px;
+
+        .summary-card {
             background: white;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid;
         }
-        
-        .amount-option {
+
+        .summary-card.income {
+            border-left-color: #4CAF50;
+        }
+
+        .summary-card.expense {
+            border-left-color: #f44336;
+        }
+
+        .summary-card.balance {
+            border-left-color: #2196F3;
+        }
+
+        .summary-card h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .summary-card .amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .summary-card.income .amount {
+            color: #4CAF50;
+        }
+
+        .summary-card.expense .amount {
+            color: #f44336;
+        }
+
+        .summary-card.balance .amount {
+            color: #2196F3;
+        }
+
+        .history-section {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .history-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .history-header h3 {
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .history-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px;
-            margin: 5px 0;
-            background: #f8f9fa;
-            border-radius: 5px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .history-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-description {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-details {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .item-amount {
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .item-amount.income {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .item-amount.expense {
+            color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 15px;
             cursor: pointer;
-            transition: background 0.2s;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            transition: all 0.2s ease;
         }
-        
-        .amount-option:hover {
-            background: #e9ecef;
+
+        .delete-btn:hover {
+            background: #ff3742;
+            transform: scale(1.05);
         }
-        
-        .amount-option.selected {
-            background: #d4edda;
-            border: 2px solid #4CAF50;
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
         }
-        
+
+        .empty-state .emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
         @media (max-width: 600px) {
-            .form-row {
+            .nav-tabs {
                 flex-direction: column;
+                gap: 10px;
             }
             
-            .balance {
+            .nav-tab {
+                text-align: center;
+            }
+
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
                 flex-direction: column;
-                gap: 15px;
+            }
+
+            .summary-section {
+                grid-template-columns: 1fr;
+            }
+
+            .history-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .item-amount {
+                align-self: flex-end;
             }
         }
     </style>
@@ -253,362 +364,218 @@
         <div class="header">
             <h1>💰 シンプル収支管理</h1>
             <p>収入と支出を記録して家計を管理しよう</p>
-        </div>
-        
-        <div class="balance">
-            <div class="balance-item">
-                <div>収入</div>
-                <div class="balance-amount income" id="totalIncome">¥0</div>
-            </div>
-            <div class="balance-item">
-                <div>支出</div>
-                <div class="balance-amount expense" id="totalExpense">¥0</div>
-            </div>
-            <div class="balance-item">
-                <div>残高</div>
-                <div class="balance-amount total" id="balance">¥0</div>
+            <div class="nav-tabs">
+                <a href="#" class="nav-tab active">📝 入力画面</a>
+                <a href="monthly.html" class="nav-tab">📊 月別表示</a>
             </div>
         </div>
-        
-        <!-- OCR機能セクション -->
-        <div class="ocr-section">
-            <h3>📸 レシート・スクリーンショットから金額を読み取り</h3>
-            <div class="upload-area" onclick="document.getElementById('imageInput').click()">
-                <div>📷 画像をクリックして選択、またはドラッグ&ドロップ</div>
-                <div style="font-size: 14px; color: #666; margin-top: 10px;">
-                    JPG, PNG形式対応 | レシート、スクリーンショット、請求書など
-                </div>
-            </div>
-            <input type="file" id="imageInput" accept="image/*" capture="environment">
-            
-            <div id="previewContainer" class="preview-container" style="display: none;">
-                <img id="previewImage" class="preview-image">
-            </div>
-            
-            <div id="ocrStatus" class="ocr-status" style="display: none;"></div>
-            
-            <div id="detectedAmounts" class="detected-amounts" style="display: none;">
-                <h4>検出された金額:</h4>
-                <div id="amountsList"></div>
-                <button id="useSelectedAmount" style="margin-top: 10px; display: none;">選択した金額を使用</button>
-            </div>
-        </div>
-        
-        <div class="form-section">
-            <h3>新しい取引を追加</h3>
-            <form id="transactionForm">
-                <div class="form-row">
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="input-group">
                     <div class="form-group">
-                        <label for="description">内容</label>
-                        <input type="text" id="description" placeholder="例: 食費、給料など" required>
+                        <label for="description">📝 内容</label>
+                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など">
                     </div>
                     <div class="form-group">
-                        <label for="amount">金額</label>
-                        <input type="number" id="amount" placeholder="1000" required>
+                        <label for="amount">💰 金額</label>
+                        <input type="number" id="amount" placeholder="0">
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
-                        <label for="type">種類</label>
-                        <select id="type" required>
-                            <option value="">選択してください</option>
-                            <option value="income">収入</option>
-                            <option value="expense">支出</option>
+                        <label for="category">🏷️ カテゴリ</label>
+                        <select id="category">
+                            <option value="食費">🍽️ 食費</option>
+                            <option value="交通費">🚗 交通費</option>
+                            <option value="娯楽">🎮 娯楽</option>
+                            <option value="光熱費">💡 光熱費</option>
+                            <option value="給料">💼 給料</option>
+                            <option value="副業">💻 副業</option>
+                            <option value="その他">📦 その他</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="date">日付</label>
-                        <input type="date" id="date" required>
+                        <label for="date">📅 日付</label>
+                        <input type="date" id="date">
                     </div>
                 </div>
-                <button type="submit">追加</button>
-            </form>
-        </div>
-        
-        <div class="transactions">
-            <h3>取引履歴</h3>
-            <div id="transactionList">
-                <p style="text-align: center; color: #666; padding: 20px;">
-                    まだ取引がありません。上のフォームから追加してください。
-                </p>
+                <div class="button-group">
+                    <button class="btn btn-income" onclick="addTransaction('income')">
+                        ➕ 収入を追加
+                    </button>
+                    <button class="btn btn-expense" onclick="addTransaction('expense')">
+                        ➖ 支出を追加
+                    </button>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <div class="summary-card income">
+                    <h3>今月の収入</h3>
+                    <div class="amount" id="totalIncome">¥0</div>
+                </div>
+                <div class="summary-card expense">
+                    <h3>今月の支出</h3>
+                    <div class="amount" id="totalExpense">¥0</div>
+                </div>
+                <div class="summary-card balance">
+                    <h3>収支</h3>
+                    <div class="amount" id="balance">¥0</div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <div class="history-header">
+                    <h3>📊 取引履歴</h3>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="empty-state">
+                        <div class="emoji">📝</div>
+                        <p>まだ取引がありません<br>収入や支出を追加してみましょう！</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // データ管理
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        let selectedAmount = null;
-        
+
         // 今日の日付をデフォルトに設定
         document.getElementById('date').valueAsDate = new Date();
-        
-        // ドラッグ&ドロップ機能
-        const uploadArea = document.querySelector('.upload-area');
-        const imageInput = document.getElementById('imageInput');
-        
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('dragover');
-        });
-        
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('dragover');
-        });
-        
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                handleImageUpload(files[0]);
-            }
-        });
-        
-        imageInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                handleImageUpload(e.target.files[0]);
-            }
-        });
-        
-        // 画像アップロード処理
-        function handleImageUpload(file) {
-            if (!file.type.startsWith('image/')) {
-                showOCRStatus('画像ファイルを選択してください', 'error');
+
+        // 取引追加
+        function addTransaction(type) {
+            const description = document.getElementById('description').value.trim();
+            const amount = parseFloat(document.getElementById('amount').value);
+            const category = document.getElementById('category').value;
+            const date = document.getElementById('date').value;
+
+            if (!description || !amount || amount <= 0) {
+                alert('内容と金額を正しく入力してください');
                 return;
             }
-            
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const previewContainer = document.getElementById('previewContainer');
-                const previewImage = document.getElementById('previewImage');
-                
-                previewImage.src = e.target.result;
-                previewContainer.style.display = 'block';
-                
-                // OCR処理開始
-                performOCR(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-        
-        // OCR処理
-        async function performOCR(imageSrc) {
-            showOCRStatus('画像を解析中...', 'processing');
-            
-            try {
-                const { data: { text } } = await Tesseract.recognize(imageSrc, 'jpn+eng', {
-                    logger: m => {
-                        if (m.status === 'recognizing text') {
-                            showOCRStatus(`解析中... ${Math.round(m.progress * 100)}%`, 'processing');
-                        }
-                    }
-                });
-                
-                console.log('OCR結果:', text);
-                const amounts = extractAmounts(text);
-                
-                if (amounts.length > 0) {
-                    showOCRStatus('金額を検出しました！', 'success');
-                    displayDetectedAmounts(amounts);
-                } else {
-                    showOCRStatus('金額が検出できませんでした。画像を確認してください。', 'error');
-                }
-                
-            } catch (error) {
-                console.error('OCR エラー:', error);
-                showOCRStatus('画像の解析に失敗しました。', 'error');
-            }
-        }
-        
-        // 金額抽出
-        function extractAmounts(text) {
-            const amounts = [];
-            
-            // 日本円のパターン（¥1,000、1000円、￥1,000など）
-            const patterns = [
-                /¥[\d,]+/g,
-                /￥[\d,]+/g,
-                /[\d,]+円/g,
-                /[\d,]+\s*円/g,
-                /合計[\s:：]*[\d,]+/g,
-                /小計[\s:：]*[\d,]+/g,
-                /税込[\s:：]*[\d,]+/g,
-                /総額[\s:：]*[\d,]+/g
-            ];
-            
-            patterns.forEach(pattern => {
-                const matches = text.match(pattern);
-                if (matches) {
-                    matches.forEach(match => {
-                        const numStr = match.replace(/[¥￥円合計小計税込総額\s:：]/g, '');
-                        const num = parseInt(numStr.replace(/,/g, ''));
-                        if (!isNaN(num) && num > 0 && num < 1000000) { // 0円〜100万円の範囲
-                            amounts.push({
-                                original: match,
-                                value: num,
-                                confidence: calculateConfidence(match, text)
-                            });
-                        }
-                    });
-                }
-            });
-            
-            // 重複除去と信頼度順ソート
-            const uniqueAmounts = amounts.filter((amount, index, self) => 
-                index === self.findIndex(a => a.value === amount.value)
-            ).sort((a, b) => b.confidence - a.confidence);
-            
-            return uniqueAmounts.slice(0, 5); // 上位5件まで
-        }
-        
-        // 信頼度計算
-        function calculateConfidence(match, fullText) {
-            let confidence = 0.5;
-            
-            // 「合計」「小計」「税込」などのキーワードがあると信頼度アップ
-            if (/合計|小計|税込|総額/.test(match)) confidence += 0.3;
-            
-            // ¥や円マークがあると信頼度アップ
-            if (/[¥￥円]/.test(match)) confidence += 0.2;
-            
-            // カンマ区切りがあると信頼度アップ
-            if (/,/.test(match)) confidence += 0.1;
-            
-            return Math.min(confidence, 1.0);
-        }
-        
-        // 検出された金額を表示
-        function displayDetectedAmounts(amounts) {
-            const container = document.getElementById('detectedAmounts');
-            const list = document.getElementById('amountsList');
-            const useButton = document.getElementById('useSelectedAmount');
-            
-            list.innerHTML = amounts.map((amount, index) => `
-                <div class="amount-option" data-amount="${amount.value}" onclick="selectAmount(${amount.value}, this)">
-                    <span>${amount.original}</span>
-                    <span>¥${amount.value.toLocaleString()}</span>
-                </div>
-            `).join('');
-            
-            container.style.display = 'block';
-            useButton.style.display = 'block';
-        }
-        
-        // 金額選択
-        function selectAmount(amount, element) {
-            // 他の選択を解除
-            document.querySelectorAll('.amount-option').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            // 選択状態にする
-            element.classList.add('selected');
-            selectedAmount = amount;
-        }
-        
-        // 選択した金額を使用
-        document.getElementById('useSelectedAmount').addEventListener('click', () => {
-            if (selectedAmount) {
-                document.getElementById('amount').value = selectedAmount;
-                document.getElementById('type').value = 'expense'; // デフォルトで支出に設定
-                document.getElementById('description').focus();
-                
-                showOCRStatus('金額が入力されました！', 'success');
-                
-                // OCRセクションを一時的に隠す
-                setTimeout(() => {
-                    document.getElementById('detectedAmounts').style.display = 'none';
-                    document.getElementById('ocrStatus').style.display = 'none';
-                }, 2000);
-            }
-        });
-        
-        // OCRステータス表示
-        function showOCRStatus(message, type) {
-            const status = document.getElementById('ocrStatus');
-            status.textContent = message;
-            status.className = `ocr-status ${type}`;
-            status.style.display = 'block';
-        }
-        
-        // フォーム送信処理
-        document.getElementById('transactionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const description = document.getElementById('description').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            const type = document.getElementById('type').value;
-            const date = document.getElementById('date').value;
-            
+
             const transaction = {
                 id: Date.now(),
-                description,
-                amount,
-                type,
-                date
+                type: type,
+                description: description,
+                amount: amount,
+                category: category,
+                date: date,
+                timestamp: new Date().toISOString()
             };
-            
-            transactions.push(transaction);
-            localStorage.setItem('transactions', JSON.stringify(transactions));
-            
-            // フォームをリセット
-            this.reset();
-            document.getElementById('date').valueAsDate = new Date();
-            
+
+            transactions.unshift(transaction);
+            saveData();
             updateDisplay();
-        });
-        
+            clearForm();
+        }
+
+        // フォームクリア
+        function clearForm() {
+            document.getElementById('description').value = '';
+            document.getElementById('amount').value = '';
+            document.getElementById('date').valueAsDate = new Date();
+        }
+
+        // データ保存
+        function saveData() {
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+        }
+
         // 取引削除
         function deleteTransaction(id) {
-            transactions = transactions.filter(t => t.id !== id);
-            localStorage.setItem('transactions', JSON.stringify(transactions));
-            updateDisplay();
+            if (confirm('この取引を削除しますか？')) {
+                transactions = transactions.filter(t => t.id !== id);
+                saveData();
+                updateDisplay();
+            }
         }
-        
+
         // 表示更新
         function updateDisplay() {
-            const totalIncome = transactions
+            updateSummary();
+            updateHistory();
+        }
+
+        // サマリー更新
+        function updateSummary() {
+            const currentMonth = new Date().toISOString().slice(0, 7);
+            const monthlyTransactions = transactions.filter(t => t.date.startsWith(currentMonth));
+
+            const totalIncome = monthlyTransactions
                 .filter(t => t.type === 'income')
                 .reduce((sum, t) => sum + t.amount, 0);
-            
-            const totalExpense = transactions
+
+            const totalExpense = monthlyTransactions
                 .filter(t => t.type === 'expense')
                 .reduce((sum, t) => sum + t.amount, 0);
-            
+
             const balance = totalIncome - totalExpense;
-            
+
             document.getElementById('totalIncome').textContent = `¥${totalIncome.toLocaleString()}`;
             document.getElementById('totalExpense').textContent = `¥${totalExpense.toLocaleString()}`;
             document.getElementById('balance').textContent = `¥${balance.toLocaleString()}`;
-            
-            // 取引履歴表示
-            const transactionList = document.getElementById('transactionList');
-            
+
+            // 収支の色を変更
+            const balanceElement = document.getElementById('balance');
+            if (balance > 0) {
+                balanceElement.style.color = '#4CAF50';
+            } else if (balance < 0) {
+                balanceElement.style.color = '#f44336';
+            } else {
+                balanceElement.style.color = '#2196F3';
+            }
+        }
+
+        // 履歴更新
+        function updateHistory() {
+            const historyList = document.getElementById('historyList');
+
             if (transactions.length === 0) {
-                transactionList.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">まだ取引がありません。上のフォームから追加してください。</p>';
+                historyList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="emoji">📝</div>
+                        <p>まだ取引がありません<br>収入や支出を追加してみましょう！</p>
+                    </div>
+                `;
                 return;
             }
-            
-            const sortedTransactions = transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            transactionList.innerHTML = sortedTransactions.map(transaction => `
-                <div class="transaction-item">
-                    <div class="transaction-info">
-                        <div style="font-weight: bold;">${transaction.description}</div>
-                        <div class="transaction-date">${transaction.date}</div>
+
+            historyList.innerHTML = transactions.map(transaction => `
+                <div class="history-item">
+                    <div class="item-info">
+                        <div class="item-description">${transaction.description}</div>
+                        <div class="item-details">
+                            ${transaction.category} • ${new Date(transaction.date).toLocaleDateString('ja-JP')}
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div class="transaction-amount ${transaction.type}">
+                    <div style="display: flex; align-items: center;">
+                        <div class="item-amount ${transaction.type}">
                             ${transaction.type === 'income' ? '+' : '-'}¥${transaction.amount.toLocaleString()}
                         </div>
-                        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">削除</button>
+                        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">
+                            🗑️
+                        </button>
                     </div>
                 </div>
             `).join('');
         }
-        
+
         // 初期表示
         updateDisplay();
+
+        // Enterキーでの追加
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+                const amount = document.getElementById('amount').value;
+                if (amount && parseFloat(amount) > 0) {
+                    // 金額が正の場合は収入として追加
+                    addTransaction('income');
+                }
+            }
+        });
     </script>
 </body>
 </html>
