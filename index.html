@@ -1081,6 +1081,15 @@
                 return;
             }
 
+            // 入力履歴を保存
+            saveInputHistory('descriptions', description);
+            if (currentIncomeMode === 'manual') {
+                saveInputHistory('amounts', amount.toString());
+            } else {
+                saveInputHistory('hourlyRates', document.getElementById('hourlyRate').value);
+                saveInputHistory('workHours', document.getElementById('workHours').value);
+            }
+
             // 日付が入力されていない場合は今日の日付を使用
             const selectedDate = dateInput ? new Date(dateInput) : new Date();
 
@@ -1106,6 +1115,81 @@
             } else {
                 saveTransaction(transaction);
             }
+        }
+
+        // 入力履歴を保存する関数
+        function saveInputHistory(key, value) {
+            if (!value || value.trim() === '') return;
+            
+            let history = JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
+            
+            // 重複を削除
+            history = history.filter(item => item !== value);
+            
+            // 新しい値を先頭に追加
+            history.unshift(value);
+            
+            // 最大20件まで保持
+            if (history.length > 20) {
+                history = history.slice(0, 20);
+            }
+            
+            localStorage.setItem(`inputHistory_${key}`, JSON.stringify(history));
+        }
+
+        // 入力履歴を取得する関数
+        function getInputHistory(key) {
+            return JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
+        }
+
+        // オートコンプリート機能を設定
+        function setupAutoComplete() {
+            // 項目名のオートコンプリート
+            setupInputSuggestions('description', 'descriptions');
+            
+            // 金額のオートコンプリート
+            setupInputSuggestions('amount', 'amounts');
+            
+            // 時給のオートコンプリート
+            setupInputSuggestions('hourlyRate', 'hourlyRates');
+            
+            // 時間数のオートコンプリート
+            setupInputSuggestions('workHours', 'workHours');
+        }
+
+        // 入力候補を設定する関数
+        function setupInputSuggestions(inputId, historyKey) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+
+            // datalist要素を作成
+            const datalistId = `${inputId}_suggestions`;
+            let datalist = document.getElementById(datalistId);
+            
+            if (!datalist) {
+                datalist = document.createElement('datalist');
+                datalist.id = datalistId;
+                input.parentNode.appendChild(datalist);
+                input.setAttribute('list', datalistId);
+            }
+
+            // 履歴を取得してoption要素を作成
+            function updateSuggestions() {
+                const history = getInputHistory(historyKey);
+                datalist.innerHTML = '';
+                
+                history.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item;
+                    datalist.appendChild(option);
+                });
+            }
+
+            // 初期表示
+            updateSuggestions();
+
+            // フォーカス時に候補を更新
+            input.addEventListener('focus', updateSuggestions);
         }
 
         function saveTransaction(transaction) {
@@ -1235,22 +1319,6 @@
             }
         };
 
-        // 既存データのマイグレーション（アカウント種別がないデータに個人を設定）
-        function migrateExistingData() {
-            let needsMigration = false;
-            transactions = transactions.map(transaction => {
-                if (!transaction.accountType) {
-                    transaction.accountType = 'personal';
-                    needsMigration = true;
-                }
-                return transaction;
-            });
-            
-            if (needsMigration) {
-                localStorage.setItem('transactions', JSON.stringify(transactions));
-            }
-        }
-
         // 初期化時に今日の日付をセット
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
@@ -1258,6 +1326,9 @@
             
             // 既存データのマイグレーション
             migrateExistingData();
+            
+            // オートコンプリート機能を設定
+            setupAutoComplete();
             
             toggleIncomeMode(); // 初期状態で収入モードセクションを表示
             updateDisplay();
