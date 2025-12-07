@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>シンプル収支管理</title>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
     <style>
+        /* 既存のCSS + 追加スタイル */
         * {
             margin: 0;
             padding: 0;
@@ -114,10 +116,6 @@
             border-bottom: 1px solid #eee;
         }
         
-        .transaction-item:last-child {
-            border-bottom: none;
-        }
-        
         .transaction-info {
             flex: 1;
         }
@@ -141,6 +139,101 @@
             cursor: pointer;
             font-size: 12px;
             width: auto;
+        }
+        
+        /* OCR機能用の追加スタイル */
+        .ocr-section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #4CAF50;
+            background: #f0f8f0;
+        }
+        
+        .upload-area.dragover {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+        
+        #imageInput {
+            display: none;
+        }
+        
+        .preview-container {
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .ocr-status {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .ocr-status.processing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .ocr-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .ocr-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .detected-amounts {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .amount-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .amount-option:hover {
+            background: #e9ecef;
+        }
+        
+        .amount-option.selected {
+            background: #d4edda;
+            border: 2px solid #4CAF50;
         }
         
         @media (max-width: 600px) {
@@ -174,6 +267,30 @@
             <div class="balance-item">
                 <div>残高</div>
                 <div class="balance-amount total" id="balance">¥0</div>
+            </div>
+        </div>
+        
+        <!-- OCR機能セクション -->
+        <div class="ocr-section">
+            <h3>📸 レシート・スクリーンショットから金額を読み取り</h3>
+            <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                <div>📷 画像をクリックして選択、またはドラッグ&ドロップ</div>
+                <div style="font-size: 14px; color: #666; margin-top: 10px;">
+                    JPG, PNG形式対応 | レシート、スクリーンショット、請求書など
+                </div>
+            </div>
+            <input type="file" id="imageInput" accept="image/*" capture="environment">
+            
+            <div id="previewContainer" class="preview-container" style="display: none;">
+                <img id="previewImage" class="preview-image">
+            </div>
+            
+            <div id="ocrStatus" class="ocr-status" style="display: none;"></div>
+            
+            <div id="detectedAmounts" class="detected-amounts" style="display: none;">
+                <h4>検出された金額:</h4>
+                <div id="amountsList"></div>
+                <button id="useSelectedAmount" style="margin-top: 10px; display: none;">選択した金額を使用</button>
             </div>
         </div>
         
@@ -220,9 +337,199 @@
 
     <script>
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let selectedAmount = null;
         
         // 今日の日付をデフォルトに設定
         document.getElementById('date').valueAsDate = new Date();
+        
+        // ドラッグ&ドロップ機能
+        const uploadArea = document.querySelector('.upload-area');
+        const imageInput = document.getElementById('imageInput');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleImageUpload(files[0]);
+            }
+        });
+        
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleImageUpload(e.target.files[0]);
+            }
+        });
+        
+        // 画像アップロード処理
+        function handleImageUpload(file) {
+            if (!file.type.startsWith('image/')) {
+                showOCRStatus('画像ファイルを選択してください', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const previewContainer = document.getElementById('previewContainer');
+                const previewImage = document.getElementById('previewImage');
+                
+                previewImage.src = e.target.result;
+                previewContainer.style.display = 'block';
+                
+                // OCR処理開始
+                performOCR(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // OCR処理
+        async function performOCR(imageSrc) {
+            showOCRStatus('画像を解析中...', 'processing');
+            
+            try {
+                const { data: { text } } = await Tesseract.recognize(imageSrc, 'jpn+eng', {
+                    logger: m => {
+                        if (m.status === 'recognizing text') {
+                            showOCRStatus(`解析中... ${Math.round(m.progress * 100)}%`, 'processing');
+                        }
+                    }
+                });
+                
+                console.log('OCR結果:', text);
+                const amounts = extractAmounts(text);
+                
+                if (amounts.length > 0) {
+                    showOCRStatus('金額を検出しました！', 'success');
+                    displayDetectedAmounts(amounts);
+                } else {
+                    showOCRStatus('金額が検出できませんでした。画像を確認してください。', 'error');
+                }
+                
+            } catch (error) {
+                console.error('OCR エラー:', error);
+                showOCRStatus('画像の解析に失敗しました。', 'error');
+            }
+        }
+        
+        // 金額抽出
+        function extractAmounts(text) {
+            const amounts = [];
+            
+            // 日本円のパターン（¥1,000、1000円、￥1,000など）
+            const patterns = [
+                /¥[\d,]+/g,
+                /￥[\d,]+/g,
+                /[\d,]+円/g,
+                /[\d,]+\s*円/g,
+                /合計[\s:：]*[\d,]+/g,
+                /小計[\s:：]*[\d,]+/g,
+                /税込[\s:：]*[\d,]+/g,
+                /総額[\s:：]*[\d,]+/g
+            ];
+            
+            patterns.forEach(pattern => {
+                const matches = text.match(pattern);
+                if (matches) {
+                    matches.forEach(match => {
+                        const numStr = match.replace(/[¥￥円合計小計税込総額\s:：]/g, '');
+                        const num = parseInt(numStr.replace(/,/g, ''));
+                        if (!isNaN(num) && num > 0 && num < 1000000) { // 0円〜100万円の範囲
+                            amounts.push({
+                                original: match,
+                                value: num,
+                                confidence: calculateConfidence(match, text)
+                            });
+                        }
+                    });
+                }
+            });
+            
+            // 重複除去と信頼度順ソート
+            const uniqueAmounts = amounts.filter((amount, index, self) => 
+                index === self.findIndex(a => a.value === amount.value)
+            ).sort((a, b) => b.confidence - a.confidence);
+            
+            return uniqueAmounts.slice(0, 5); // 上位5件まで
+        }
+        
+        // 信頼度計算
+        function calculateConfidence(match, fullText) {
+            let confidence = 0.5;
+            
+            // 「合計」「小計」「税込」などのキーワードがあると信頼度アップ
+            if (/合計|小計|税込|総額/.test(match)) confidence += 0.3;
+            
+            // ¥や円マークがあると信頼度アップ
+            if (/[¥￥円]/.test(match)) confidence += 0.2;
+            
+            // カンマ区切りがあると信頼度アップ
+            if (/,/.test(match)) confidence += 0.1;
+            
+            return Math.min(confidence, 1.0);
+        }
+        
+        // 検出された金額を表示
+        function displayDetectedAmounts(amounts) {
+            const container = document.getElementById('detectedAmounts');
+            const list = document.getElementById('amountsList');
+            const useButton = document.getElementById('useSelectedAmount');
+            
+            list.innerHTML = amounts.map((amount, index) => `
+                <div class="amount-option" data-amount="${amount.value}" onclick="selectAmount(${amount.value}, this)">
+                    <span>${amount.original}</span>
+                    <span>¥${amount.value.toLocaleString()}</span>
+                </div>
+            `).join('');
+            
+            container.style.display = 'block';
+            useButton.style.display = 'block';
+        }
+        
+        // 金額選択
+        function selectAmount(amount, element) {
+            // 他の選択を解除
+            document.querySelectorAll('.amount-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // 選択状態にする
+            element.classList.add('selected');
+            selectedAmount = amount;
+        }
+        
+        // 選択した金額を使用
+        document.getElementById('useSelectedAmount').addEventListener('click', () => {
+            if (selectedAmount) {
+                document.getElementById('amount').value = selectedAmount;
+                document.getElementById('type').value = 'expense'; // デフォルトで支出に設定
+                document.getElementById('description').focus();
+                
+                showOCRStatus('金額が入力されました！', 'success');
+                
+                // OCRセクションを一時的に隠す
+                setTimeout(() => {
+                    document.getElementById('detectedAmounts').style.display = 'none';
+                    document.getElementById('ocrStatus').style.display = 'none';
+                }, 2000);
+            }
+        });
+        
+        // OCRステータス表示
+        function showOCRStatus(message, type) {
+            const status = document.getElementById('ocrStatus');
+            status.textContent = message;
+            status.className = `ocr-status ${type}`;
+            status.style.display = 'block';
+        }
         
         // フォーム送信処理
         document.getElementById('transactionForm').addEventListener('submit', function(e) {
