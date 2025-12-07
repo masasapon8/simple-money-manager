@@ -53,6 +53,40 @@
             width: 100%;
         }
 
+        /* アカウント種別切り替え */
+        .account-toggle {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .account-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: #666;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .account-btn.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .account-btn:hover:not(.active) {
+            background: #e8f5e8;
+            color: #4CAF50;
+        }
+
         .input-section {
             background: #f8f9fa;
             padding: 15px 10px;
@@ -215,6 +249,62 @@
             box-shadow: 0 3px 10px rgba(33, 150, 243, 0.4);
         }
 
+        /* タブ機能 */
+        .tabs-container {
+            margin-bottom: 15px;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            color: #666;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: #2196F3;
+            color: white;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+        }
+
+        .tab:hover:not(.active) {
+            background: #e3f2fd;
+            color: #2196F3;
+        }
+
+        .period-selector {
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .period-selector.active {
+            display: block;
+        }
+
+        .period-selector select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            background: white;
+        }
+
         .summary-section {
             display: flex;
             flex-direction: column;
@@ -270,6 +360,40 @@
 
         .summary-card.balance .amount {
             color: #2196F3;
+        }
+
+        .account-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 8px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .account-badge {
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .account-badge.personal {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .account-badge.corporate {
+            background: #f3e5f5;
+            color: #7b1fa2;
         }
 
         .history-section {
@@ -581,6 +705,12 @@
         </div>
 
         <div class="main-content">
+            <!-- アカウント種別切り替え -->
+            <div class="account-toggle">
+                <button class="account-btn active" onclick="switchAccount('personal')">👤 個人</button>
+                <button class="account-btn" onclick="switchAccount('corporate')">🏢 法人</button>
+            </div>
+
             <!-- 入力セクション -->
             <div class="input-section">
                 <div class="input-group">
@@ -674,19 +804,43 @@
                 </div>
             </div>
 
+            <!-- タブ機能 -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('all')">📊 全期間</button>
+                    <button class="tab" onclick="switchTab('monthly')">📅 月別</button>
+                    <button class="tab" onclick="switchTab('yearly')">🗓️ 年別</button>
+                </div>
+                
+                <div class="period-selector" id="monthlySelector">
+                    <select id="monthSelect" onchange="updateDisplay()">
+                        <!-- 月選択オプションはJavaScriptで生成 -->
+                    </select>
+                </div>
+                
+                <div class="period-selector" id="yearlySelector">
+                    <select id="yearSelect" onchange="updateDisplay()">
+                        <!-- 年選択オプションはJavaScriptで生成 -->
+                    </select>
+                </div>
+            </div>
+
             <!-- サマリーセクション -->
             <div class="summary-section">
                 <div class="summary-card income">
                     <h3>📈 総収入</h3>
                     <div class="amount" id="totalIncome">¥0</div>
+                    <div class="account-summary" id="incomeAccountSummary"></div>
                 </div>
                 <div class="summary-card expense">
                     <h3>📉 総支出</h3>
                     <div class="amount" id="totalExpense">¥0</div>
+                    <div class="account-summary" id="expenseAccountSummary"></div>
                 </div>
                 <div class="summary-card balance">
                     <h3>💰 残高</h3>
                     <div class="amount" id="balance">¥0</div>
+                    <div class="account-summary" id="balanceAccountSummary"></div>
                 </div>
             </div>
 
@@ -723,6 +877,41 @@
             category: []
         };
         let currentIncomeMode = 'manual'; // 'manual' or 'hourly'
+        let currentAccount = 'personal'; // 'personal' or 'corporate'
+        let currentTab = 'all'; // 'all', 'monthly', 'yearly'
+
+        // アカウント切り替え
+        function switchAccount(accountType) {
+            currentAccount = accountType;
+            
+            // ボタンの状態更新
+            document.querySelectorAll('.account-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            updateDisplay();
+        }
+
+        // タブ切り替え
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // タブボタンの状態更新
+            document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 期間選択の表示切り替え
+            document.querySelectorAll('.period-selector').forEach(selector => {
+                selector.classList.remove('active');
+            });
+            
+            if (tab === 'monthly') {
+                document.getElementById('monthlySelector').classList.add('active');
+            } else if (tab === 'yearly') {
+                document.getElementById('yearlySelector').classList.add('active');
+            }
+            
+            updateDisplay();
+        }
 
         // 入力履歴機能
         function saveInputHistory(field, value) {
@@ -888,6 +1077,7 @@
                 amount,
                 type,
                 category,
+                accountType: currentAccount,
                 date: selectedDate.toLocaleDateString('ja-JP'),
                 detailInfo, // 時給計算の詳細情報
                 receipt: null
@@ -920,17 +1110,46 @@
             }
         }
 
+        function getFilteredTransactions() {
+            let filtered = transactions;
+            
+            // 期間フィルタ
+            if (currentTab === 'monthly') {
+                const selectedMonth = document.getElementById('monthSelect').value;
+                if (selectedMonth) {
+                    filtered = filtered.filter(t => {
+                        const transactionDate = new Date(t.date.split('/').reverse().join('-'));
+                        const transactionMonth = `${transactionDate.getFullYear()}-${String(transactionDate.getMonth() + 1).padStart(2, '0')}`;
+                        return transactionMonth === selectedMonth;
+                    });
+                }
+            } else if (currentTab === 'yearly') {
+                const selectedYear = document.getElementById('yearSelect').value;
+                if (selectedYear) {
+                    filtered = filtered.filter(t => {
+                        const transactionDate = new Date(t.date.split('/').reverse().join('-'));
+                        return transactionDate.getFullYear().toString() === selectedYear;
+                    });
+                }
+            }
+            
+            return filtered;
+        }
+
         function updateDisplay() {
             updateSummary();
             updateHistory();
         }
 
         function updateSummary() {
-            const totalIncome = transactions
+            const filteredTransactions = getFilteredTransactions();
+            
+            // 全体の集計
+            const totalIncome = filteredTransactions
                 .filter(t => t.type === 'income')
                 .reduce((sum, t) => sum + t.amount, 0);
             
-            const totalExpense = transactions
+            const totalExpense = filteredTransactions
                 .filter(t => t.type === 'expense')
                 .reduce((sum, t) => sum + t.amount, 0);
             
@@ -939,25 +1158,91 @@
             document.getElementById('totalIncome').textContent = `¥${totalIncome.toLocaleString()}`;
             document.getElementById('totalExpense').textContent = `¥${totalExpense.toLocaleString()}`;
             document.getElementById('balance').textContent = `¥${balance.toLocaleString()}`;
+
+            // 個人・法人別の集計
+            updateAccountSummary(filteredTransactions);
+        }
+
+        function updateAccountSummary(filteredTransactions) {
+            const personalIncome = filteredTransactions
+                .filter(t => t.type === 'income' && t.accountType === 'personal')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const corporateIncome = filteredTransactions
+                .filter(t => t.type === 'income' && t.accountType === 'corporate')
+                .reduce((sum, t) => sum + t.amount, 0);
+
+            const personalExpense = filteredTransactions
+                .filter(t => t.type === 'expense' && t.accountType === 'personal')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const corporateExpense = filteredTransactions
+                .filter(t => t.type === 'expense' && t.accountType === 'corporate')
+                .reduce((sum, t) => sum + t.amount, 0);
+
+            // 収入サマリー
+            document.getElementById('incomeAccountSummary').innerHTML = `
+                <div class="account-item">
+                    <span class="account-badge personal">個人</span>
+                    <span>¥${personalIncome.toLocaleString()}</span>
+                </div>
+                <div class="account-item">
+                    <span class="account-badge corporate">法人</span>
+                    <span>¥${corporateIncome.toLocaleString()}</span>
+                </div>
+            `;
+
+            // 支出サマリー
+            document.getElementById('expenseAccountSummary').innerHTML = `
+                <div class="account-item">
+                    <span class="account-badge personal">個人</span>
+                    <span>¥${personalExpense.toLocaleString()}</span>
+                </div>
+                <div class="account-item">
+                    <span class="account-badge corporate">法人</span>
+                    <span>¥${corporateExpense.toLocaleString()}</span>
+                </div>
+            `;
+
+            // 残高サマリー
+            const personalBalance = personalIncome - personalExpense;
+            const corporateBalance = corporateIncome - corporateExpense;
+            
+            document.getElementById('balanceAccountSummary').innerHTML = `
+                <div class="account-item">
+                    <span class="account-badge personal">個人</span>
+                    <span>¥${personalBalance.toLocaleString()}</span>
+                </div>
+                <div class="account-item">
+                    <span class="account-badge corporate">法人</span>
+                    <span>¥${corporateBalance.toLocaleString()}</span>
+                </div>
+            `;
         }
 
         function updateHistory() {
             const historyList = document.getElementById('historyList');
+            const filteredTransactions = getFilteredTransactions();
             
-            if (transactions.length === 0) {
+            if (filteredTransactions.length === 0) {
                 historyList.innerHTML = `
                     <div class="empty-state">
                         <div class="emoji">📝</div>
-                        <p>まだ取引記録がありません。<br>上のフォームから収支を記録してみましょう！</p>
+                        <p>該当する取引記録がありません。<br>条件を変更するか、新しい記録を追加してみましょう！</p>
                     </div>
                 `;
                 return;
             }
 
-            historyList.innerHTML = transactions.map(transaction => `
+            historyList.innerHTML = filteredTransactions.map(transaction => `
                 <div class="history-item">
                     <div class="item-info">
-                        <div class="item-description">${transaction.description}</div>
+                        <div class="item-description">
+                            ${transaction.description}
+                            <span class="account-badge ${transaction.accountType}">
+                                ${transaction.accountType === 'personal' ? '個人' : '法人'}
+                            </span>
+                        </div>
                         <div class="item-details">
                             ${transaction.date} • ${transaction.category}
                             ${transaction.detailInfo ? `<br>📊 ${transaction.detailInfo}` : ''}
@@ -972,6 +1257,39 @@
                     </div>
                 </div>
             `).join('');
+        }
+
+        function initializePeriodSelectors() {
+            // 月選択の初期化
+            const monthSelect = document.getElementById('monthSelect');
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth();
+
+            // 過去12ヶ月分の選択肢を生成
+            for (let i = 0; i < 12; i++) {
+                const date = new Date(currentYear, currentMonth - i, 1);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const value = `${year}-${String(month).padStart(2, '0')}`;
+                const text = `${year}年${month}月`;
+                
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = text;
+                if (i === 0) option.selected = true; // 今月を選択
+                monthSelect.appendChild(option);
+            }
+
+            // 年選択の初期化
+            const yearSelect = document.getElementById('yearSelect');
+            for (let year = currentYear; year >= currentYear - 5; year--) {
+                const option = document.createElement('option');
+                option.value = year.toString();
+                option.textContent = `${year}年`;
+                if (year === currentYear) option.selected = true; // 今年を選択
+                yearSelect.appendChild(option);
+            }
         }
 
         function clearForm() {
@@ -1029,6 +1347,7 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date').value = today;
             toggleIncomeMode(); // 初期状態で収入モードセクションを表示
+            initializePeriodSelectors(); // 期間選択の初期化
             updateDisplay();
         });
     </script>
