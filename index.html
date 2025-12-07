@@ -98,6 +98,79 @@
             border-color: #4CAF50;
         }
 
+        .hourly-section {
+            background: #e8f5e8;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 2px solid #4CAF50;
+        }
+
+        .hourly-section h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .hourly-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .hourly-inputs .form-group {
+            flex: 1;
+        }
+
+        .hourly-inputs .form-group label {
+            font-size: 0.8rem;
+        }
+
+        .hourly-inputs .form-group input {
+            padding: 8px;
+            font-size: 0.85rem;
+        }
+
+        .calculated-amount {
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 2px solid #4CAF50;
+            color: #2e7d32;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-mode-toggle {
+            display: flex;
+            background: #e1e5e9;
+            border-radius: 20px;
+            padding: 3px;
+            margin-bottom: 10px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 17px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #666;
+        }
+
+        .toggle-btn.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
         .image-preview {
             margin-top: 8px;
             width: 100%;
@@ -454,16 +527,44 @@
                         <input type="text" id="description" placeholder="例: 食費、給料、交通費など">
                     </div>
                     <div class="form-group">
-                        <label for="amount">💵 金額</label>
-                        <input type="number" id="amount" placeholder="金額を入力">
-                    </div>
-                    <div class="form-group">
                         <label for="type">📊 種類</label>
-                        <select id="type">
+                        <select id="type" onchange="toggleIncomeMode()">
                             <option value="income">収入</option>
                             <option value="expense">支出</option>
                         </select>
                     </div>
+                    
+                    <!-- 収入モード切り替え -->
+                    <div class="form-group" id="incomeModeSection" style="display: block;">
+                        <label>💼 収入入力方法</label>
+                        <div class="input-mode-toggle">
+                            <button type="button" class="toggle-btn active" onclick="setIncomeMode('manual')">直接入力</button>
+                            <button type="button" class="toggle-btn" onclick="setIncomeMode('hourly')">時給計算</button>
+                        </div>
+                    </div>
+
+                    <!-- 直接入力モード -->
+                    <div class="form-group" id="manualAmountSection">
+                        <label for="amount">💵 金額</label>
+                        <input type="number" id="amount" placeholder="金額を入力">
+                    </div>
+
+                    <!-- 時給計算モード -->
+                    <div class="hourly-section" id="hourlySection" style="display: none;">
+                        <h4>⏰ 時給計算</h4>
+                        <div class="hourly-inputs">
+                            <div class="form-group">
+                                <label for="hourlyRate">時給 (円)</label>
+                                <input type="number" id="hourlyRate" placeholder="1000" oninput="calculateHourlyAmount()">
+                            </div>
+                            <div class="form-group">
+                                <label for="workHours">時間数</label>
+                                <input type="number" id="workHours" step="0.5" placeholder="8" oninput="calculateHourlyAmount()">
+                            </div>
+                        </div>
+                        <div class="calculated-amount" id="calculatedAmount">計算結果: ¥0</div>
+                    </div>
+
                     <div class="form-group">
                         <label for="date">📅 日付</label>
                         <input type="date" id="date">
@@ -533,14 +634,66 @@
 
     <script>
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let currentIncomeMode = 'manual'; // 'manual' or 'hourly'
+
+        function setIncomeMode(mode) {
+            currentIncomeMode = mode;
+            
+            // トグルボタンの状態更新
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // セクションの表示切り替え
+            if (mode === 'manual') {
+                document.getElementById('manualAmountSection').style.display = 'block';
+                document.getElementById('hourlySection').style.display = 'none';
+            } else {
+                document.getElementById('manualAmountSection').style.display = 'none';
+                document.getElementById('hourlySection').style.display = 'block';
+            }
+        }
+
+        function toggleIncomeMode() {
+            const type = document.getElementById('type').value;
+            const incomeModeSection = document.getElementById('incomeModeSection');
+            
+            if (type === 'income') {
+                incomeModeSection.style.display = 'block';
+            } else {
+                incomeModeSection.style.display = 'none';
+                // 支出の場合は直接入力モードに戻す
+                setIncomeMode('manual');
+                document.querySelector('.toggle-btn').classList.add('active');
+            }
+        }
+
+        function calculateHourlyAmount() {
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+            const workHours = parseFloat(document.getElementById('workHours').value) || 0;
+            const calculatedAmount = hourlyRate * workHours;
+            
+            document.getElementById('calculatedAmount').textContent = `計算結果: ¥${calculatedAmount.toLocaleString()}`;
+        }
 
         function addTransaction() {
             const description = document.getElementById('description').value;
-            const amount = parseFloat(document.getElementById('amount').value);
             const type = document.getElementById('type').value;
             const category = document.getElementById('category').value;
             const dateInput = document.getElementById('date').value;
             const receiptFile = document.getElementById('receipt').files[0];
+
+            let amount = 0;
+            let detailInfo = '';
+
+            // 金額の取得方法を分岐
+            if (type === 'income' && currentIncomeMode === 'hourly') {
+                const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+                const workHours = parseFloat(document.getElementById('workHours').value) || 0;
+                amount = hourlyRate * workHours;
+                detailInfo = `時給${hourlyRate}円 × ${workHours}時間`;
+            } else {
+                amount = parseFloat(document.getElementById('amount').value) || 0;
+            }
 
             if (!description || !amount) {
                 alert('項目名と金額を入力してください');
@@ -557,6 +710,7 @@
                 type,
                 category,
                 date: selectedDate.toLocaleDateString('ja-JP'),
+                detailInfo, // 時給計算の詳細情報
                 receipt: null
             };
 
@@ -625,7 +779,10 @@
                 <div class="history-item">
                     <div class="item-info">
                         <div class="item-description">${transaction.description}</div>
-                        <div class="item-details">${transaction.date} • ${transaction.category}</div>
+                        <div class="item-details">
+                            ${transaction.date} • ${transaction.category}
+                            ${transaction.detailInfo ? `<br>📊 ${transaction.detailInfo}` : ''}
+                        </div>
                     </div>
                     <div class="item-actions">
                         <div class="item-amount ${transaction.type}">
@@ -641,11 +798,18 @@
         function clearForm() {
             document.getElementById('description').value = '';
             document.getElementById('amount').value = '';
+            document.getElementById('hourlyRate').value = '';
+            document.getElementById('workHours').value = '';
             document.getElementById('type').value = 'income';
             document.getElementById('category').value = '食費';
             document.getElementById('date').value = '';
             document.getElementById('receipt').value = '';
             document.getElementById('imagePreview').innerHTML = '';
+            document.getElementById('calculatedAmount').textContent = '計算結果: ¥0';
+            
+            // 収入モードをリセット
+            setIncomeMode('manual');
+            document.querySelector('.toggle-btn').classList.add('active');
         }
 
         function showModal(imageSrc) {
@@ -685,6 +849,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date').value = today;
+            toggleIncomeMode(); // 初期状態で収入モードセクションを表示
             updateDisplay();
         });
     </script>
