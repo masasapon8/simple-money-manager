@@ -90,6 +90,7 @@
             border-radius: 8px;
             font-size: 0.9rem;
             transition: border-color 0.3s ease;
+            background: white;
             width: 100%;
             box-sizing: border-box;
         }
@@ -99,6 +100,78 @@
             outline: none;
             border-color: #4CAF50;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .hourly-section {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #4CAF50;
+            width: 100%;
+        }
+
+        .hourly-section h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .hourly-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .calculated-amount {
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 2px solid #4CAF50;
+            color: #2e7d32;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-mode-toggle {
+            display: flex;
+            background: #e1e5e9;
+            border-radius: 20px;
+            padding: 3px;
+            margin-bottom: 10px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 17px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #666;
+        }
+
+        .toggle-btn.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .image-preview {
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .button-group {
@@ -151,11 +224,11 @@
 
         .summary-card {
             background: white;
-            padding: 15px;
+            padding: 20px 15px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #4CAF50;
+            border-left: 4px solid #ddd;
             width: 100%;
             box-sizing: border-box;
         }
@@ -173,10 +246,9 @@
         }
 
         .summary-card h3 {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #666;
             margin-bottom: 8px;
-            font-weight: 600;
         }
 
         .summary-card .amount {
@@ -251,7 +323,7 @@
         .item-details {
             font-size: 0.75rem;
             color: #666;
-            line-height: 1.3;
+            line-height: 1.4;
         }
 
         .item-actions {
@@ -275,110 +347,44 @@
             color: #f44336;
         }
 
-        .hourly-section {
-            background: #f0f8ff;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e3f2fd;
-        }
-
-        .hourly-section h4 {
-            color: #1976d2;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .hourly-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .calculated-amount {
-            background: #fff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 2px solid #4CAF50;
-            color: #2e7d32;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 8px;
-            font-size: 0.9rem;
-        }
-
-        .input-mode-toggle {
-            display: flex;
-            background: #e1e5e9;
-            border-radius: 20px;
-            padding: 3px;
-            margin-bottom: 10px;
-        }
-
-        .toggle-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 17px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: transparent;
-            color: #666;
-        }
-
-        .toggle-btn.active {
-            background: #4CAF50;
-            color: white;
-            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
-        }
-
-        .image-preview {
-            margin-top: 8px;
-            width: 100%;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
         .receipt-image {
             width: 30px;
             height: 30px;
-            border-radius: 4px;
             object-fit: cover;
+            border-radius: 4px;
             cursor: pointer;
-            border: 2px solid #ddd;
-            margin-right: 8px;
+            border: 1px solid #ddd;
         }
 
         .delete-btn {
-            background: #ff4757;
+            background: #f44336;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 12px;
-            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
             font-size: 0.7rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #d32f2f;
         }
 
         .empty-state {
             text-align: center;
-            padding: 30px 15px;
+            padding: 40px 20px;
             color: #666;
         }
 
         .empty-state .emoji {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            margin-bottom: 15px;
         }
 
         .empty-state p {
-            font-size: 0.85rem;
-            line-height: 1.4;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .modal {
@@ -389,16 +395,16 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 95%;
-            max-height: 95%;
+            position: relative;
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
         }
 
         .modal-content img {
@@ -409,16 +415,13 @@
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
+            top: 5px;
+            right: 15px;
+            color: white;
+            font-size: 25px;
             font-weight: bold;
             cursor: pointer;
-        }
-
-        .close-modal:hover {
-            color: #bbb;
+            z-index: 1001;
         }
 
         /* タブレット以上 */
@@ -508,8 +511,7 @@
                 <div class="input-group">
                     <div class="form-group">
                         <label for="description">📝 項目名</label>
-                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など" list="description_suggestions">
-                        <datalist id="description_suggestions"></datalist>
+                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など">
                     </div>
                     <div class="form-group">
                         <label for="type">📊 種類</label>
@@ -527,11 +529,20 @@
                             <button type="button" class="toggle-btn" onclick="setIncomeMode('hourly')">時給計算</button>
                         </div>
                     </div>
+
+                    <!-- 個人・法人切り替え（収入時のみ表示） -->
+                    <div class="form-group" id="entityTypeSection" style="display: block;">
+                        <label>👤 収入種別</label>
+                        <div class="input-mode-toggle">
+                            <button type="button" class="toggle-btn active" id="personalBtn" onclick="setEntityType('personal')">個人</button>
+                            <button type="button" class="toggle-btn" id="corporateBtn" onclick="setEntityType('corporate')">法人</button>
+                        </div>
+                    </div>
+
                     <!-- 直接入力モード -->
                     <div class="form-group" id="manualAmountSection">
                         <label for="amount">💵 金額</label>
-                        <input type="number" id="amount" placeholder="金額を入力" inputmode="numeric" pattern="[0-9]*" list="amount_suggestions">
-                        <datalist id="amount_suggestions"></datalist>
+                        <input type="number" id="amount" placeholder="金額を入力" inputmode="numeric" pattern="[0-9]*">
                     </div>
 
                     <!-- 時給計算モード -->
@@ -540,13 +551,11 @@
                         <div class="hourly-inputs">
                             <div class="form-group">
                                 <label for="hourlyRate">時給 (円)</label>
-                                <input type="number" id="hourlyRate" placeholder="1000" inputmode="numeric" pattern="[0-9]*" oninput="calculateHourlyAmount()" list="hourlyRate_suggestions">
-                                <datalist id="hourlyRate_suggestions"></datalist>
+                                <input type="number" id="hourlyRate" placeholder="1000" inputmode="numeric" pattern="[0-9]*" oninput="calculateHourlyAmount()">
                             </div>
                             <div class="form-group">
                                 <label for="workHours">時間数</label>
-                                <input type="number" id="workHours" step="0.5" placeholder="8" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" oninput="calculateHourlyAmount()" list="workHours_suggestions">
-                                <datalist id="workHours_suggestions"></datalist>
+                                <input type="number" id="workHours" step="0.5" placeholder="8" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" oninput="calculateHourlyAmount()">
                             </div>
                         </div>
                         <div class="calculated-amount" id="calculatedAmount">計算結果: ¥0</div>
@@ -622,6 +631,21 @@
     <script>
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         let currentIncomeMode = 'manual'; // 'manual' or 'hourly'
+        let currentEntityType = 'personal'; // 'personal' or 'corporate'
+
+        function setEntityType(type) {
+            currentEntityType = type;
+            
+            // トグルボタンの状態更新
+            document.getElementById('personalBtn').classList.remove('active');
+            document.getElementById('corporateBtn').classList.remove('active');
+            
+            if (type === 'personal') {
+                document.getElementById('personalBtn').classList.add('active');
+            } else {
+                document.getElementById('corporateBtn').classList.add('active');
+            }
+        }
 
         function setIncomeMode(mode) {
             currentIncomeMode = mode;
@@ -643,11 +667,14 @@
         function toggleIncomeMode() {
             const type = document.getElementById('type').value;
             const incomeModeSection = document.getElementById('incomeModeSection');
+            const entityTypeSection = document.getElementById('entityTypeSection');
             
             if (type === 'income') {
                 incomeModeSection.style.display = 'block';
+                entityTypeSection.style.display = 'block';
             } else {
                 incomeModeSection.style.display = 'none';
+                entityTypeSection.style.display = 'none';
                 // 支出の場合は直接入力モードに戻す
                 setIncomeMode('manual');
                 document.querySelector('.toggle-btn').classList.add('active');
@@ -687,17 +714,6 @@
                 return;
             }
 
-            // 入力履歴を保存
-            saveInputHistory('descriptions', description);
-            if (currentIncomeMode === 'manual') {
-                saveInputHistory('amounts', amount.toString());
-            } else {
-                const hourlyRateValue = document.getElementById('hourlyRate').value;
-                const workHoursValue = document.getElementById('workHours').value;
-                if (hourlyRateValue) saveInputHistory('hourlyRates', hourlyRateValue);
-                if (workHoursValue) saveInputHistory('workHours', workHoursValue);
-            }
-
             // 日付が入力されていない場合は今日の日付を使用
             const selectedDate = dateInput ? new Date(dateInput) : new Date();
 
@@ -709,6 +725,7 @@
                 category,
                 date: selectedDate.toLocaleDateString('ja-JP'),
                 detailInfo, // 時給計算の詳細情報
+                entityType: type === 'income' ? currentEntityType : null, // 個人・法人情報
                 receipt: null
             };
 
@@ -722,67 +739,6 @@
             } else {
                 saveTransaction(transaction);
             }
-        }
-
-        // 入力履歴を保存する関数
-        function saveInputHistory(key, value) {
-            if (!value || value.trim() === '') return;
-            
-            let history = JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
-            
-            // 重複を削除
-            history = history.filter(item => item !== value);
-            
-            // 新しい値を先頭に追加
-            history.unshift(value);
-            
-            // 最大20件まで保持
-            if (history.length > 20) {
-                history = history.slice(0, 20);
-            }
-            
-            localStorage.setItem(`inputHistory_${key}`, JSON.stringify(history));
-            
-            // 候補リストを即座に更新
-            updateSuggestions(key);
-        }
-
-        // 入力履歴を取得する関数
-        function getInputHistory(key) {
-            return JSON.parse(localStorage.getItem(`inputHistory_${key}`) || '[]');
-        }
-
-        // 候補リストを更新する関数
-        function updateSuggestions(historyKey) {
-            const fieldMap = {
-                'descriptions': 'description',
-                'amounts': 'amount',
-                'hourlyRates': 'hourlyRate',
-                'workHours': 'workHours'
-            };
-            
-            const fieldId = fieldMap[historyKey];
-            if (!fieldId) return;
-            
-            const datalist = document.getElementById(`${fieldId}_suggestions`);
-            if (!datalist) return;
-            
-            const history = getInputHistory(historyKey);
-            datalist.innerHTML = '';
-            
-            history.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item;
-                datalist.appendChild(option);
-            });
-        }
-
-        // 全ての候補リストを初期化
-        function initializeSuggestions() {
-            updateSuggestions('descriptions');
-            updateSuggestions('amounts');
-            updateSuggestions('hourlyRates');
-            updateSuggestions('workHours');
         }
 
         function saveTransaction(transaction) {
@@ -840,6 +796,7 @@
                         <div class="item-description">${transaction.description}</div>
                         <div class="item-details">
                             ${transaction.date} • ${transaction.category}
+                            ${transaction.entityType ? ` • ${transaction.entityType === 'personal' ? '👤個人' : '🏢法人'}` : ''}
                             ${transaction.detailInfo ? `<br>📊 ${transaction.detailInfo}` : ''}
                         </div>
                     </div>
@@ -869,6 +826,9 @@
             // 収入モードをリセット
             setIncomeMode('manual');
             document.querySelector('.toggle-btn').classList.add('active');
+            
+            // 個人・法人をリセット
+            setEntityType('personal');
         }
 
         function showModal(imageSrc) {
@@ -908,10 +868,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date').value = today;
-            
-            // 入力候補を初期化
-            initializeSuggestions();
-            
             toggleIncomeMode(); // 初期状態で収入モードセクションを表示
             updateDisplay();
         });
