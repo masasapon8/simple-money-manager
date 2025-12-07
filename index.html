@@ -1,455 +1,53 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💰 シンプル収支管理</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .nav-tab {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .nav-tab:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-        
-        .nav-tab.active {
-            background: rgba(255,255,255,0.3);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .main-content {
-            padding: 40px;
-        }
-
-        .input-section {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .input-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #333;
-            font-size: 0.9rem;
-        }
-
-        .form-group input, .form-group select {
-            padding: 12px 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-income {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            color: white;
-        }
-
-        .btn-expense {
-            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .summary-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .summary-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid;
-        }
-
-        .summary-card.income {
-            border-left-color: #4CAF50;
-        }
-
-        .summary-card.expense {
-            border-left-color: #f44336;
-        }
-
-        .summary-card.balance {
-            border-left-color: #2196F3;
-        }
-
-        .summary-card h3 {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .summary-card .amount {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .summary-card.income .amount {
-            color: #4CAF50;
-        }
-
-        .summary-card.expense .amount {
-            color: #f44336;
-        }
-
-        .summary-card.balance .amount {
-            color: #2196F3;
-        }
-
-        .history-section {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .history-header {
-            background: #f8f9fa;
-            padding: 20px;
-            border-bottom: 1px solid #e1e5e9;
-        }
-
-        .history-header h3 {
-            color: #333;
-            font-size: 1.2rem;
-        }
-
-        .history-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s ease;
-        }
-
-        .history-item:hover {
-            background-color: #f8f9fa;
-        }
-
-        .history-item:last-child {
-            border-bottom: none;
-        }
-
-        .item-info {
-            flex: 1;
-        }
-
-        .item-description {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .item-details {
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .item-amount {
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-
-        .item-amount.income {
-            color: #4CAF50;
-            background: rgba(76, 175, 80, 0.1);
-        }
-
-        .item-amount.expense {
-            color: #f44336;
-            background: rgba(244, 67, 54, 0.1);
-        }
-
-        .delete-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            transition: all 0.2s ease;
-        }
-
-        .delete-btn:hover {
-            background: #ff3742;
-            transform: scale(1.05);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-        }
-
-        .empty-state .emoji {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        @media (max-width: 600px) {
-            .nav-tabs {
-                flex-direction: column;
-                gap: 10px;
-            }
+        // 画像プレビュー機能
+        document.getElementById('receipt').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
             
-            .nav-tab {
-                text-align: center;
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="レシート画像" onclick="showImageModal('${e.target.result}')">
+                        <div class="remove-image" onclick="removeImage()">❌ 画像を削除</div>
+                    `;
+                };
+                reader.readAsDataURL(file);
             }
+        });
 
-            .container {
-                margin: 10px;
-                border-radius: 15px;
-            }
-
-            .header {
-                padding: 20px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .main-content {
-                padding: 20px;
-            }
-
-            .input-group {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .summary-section {
-                grid-template-columns: 1fr;
-            }
-
-            .history-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .item-amount {
-                align-self: flex-end;
-            }
+        // 画像削除
+        function removeImage() {
+            document.getElementById('receipt').value = '';
+            document.getElementById('imagePreview').innerHTML = '';
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>💰 シンプル収支管理</h1>
-            <p>収入と支出を記録して家計を管理しよう</p>
-            <div class="nav-tabs">
-                <a href="#" class="nav-tab active">📝 入力画面</a>
-                <a href="monthly.html" class="nav-tab">📊 月別表示</a>
-            </div>
-        </div>
 
-        <div class="main-content">
-            <div class="input-section">
-                <div class="input-group">
-                    <div class="form-group">
-                        <label for="description">📝 内容</label>
-                        <input type="text" id="description" placeholder="例: 食費、給料、交通費など">
-                    </div>
-                    <div class="form-group">
-                        <label for="amount">💰 金額</label>
-                        <input type="number" id="amount" placeholder="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="category">🏷️ カテゴリ</label>
-                        <select id="category">
-                            <option value="食費">🍽️ 食費</option>
-                            <option value="交通費">🚗 交通費</option>
-                            <option value="娯楽">🎮 娯楽</option>
-                            <option value="光熱費">💡 光熱費</option>
-                            <option value="給料">💼 給料</option>
-                            <option value="副業">💻 副業</option>
-                            <option value="その他">📦 その他</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">📅 日付</label>
-                        <input type="date" id="date">
-                    </div>
+        // 画像モーダル表示
+        function showImageModal(src) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <span class="close-modal" onclick="this.parentElement.remove()">&times;</span>
+                <div class="modal-content">
+                    <img src="${src}" alt="レシート画像">
                 </div>
-                <div class="button-group">
-                    <button class="btn btn-income" onclick="addTransaction('income')">
-                        ➕ 収入を追加
-                    </button>
-                    <button class="btn btn-expense" onclick="addTransaction('expense')">
-                        ➖ 支出を追加
-                    </button>
-                </div>
-            </div>
+            `;
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+            
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
+        }
 
-            <div class="summary-section">
-                <div class="summary-card income">
-                    <h3>今月の収入</h3>
-                    <div class="amount" id="totalIncome">¥0</div>
-                </div>
-                <div class="summary-card expense">
-                    <h3>今月の支出</h3>
-                    <div class="amount" id="totalExpense">¥0</div>
-                </div>
-                <div class="summary-card balance">
-                    <h3>収支</h3>
-                    <div class="amount" id="balance">¥0</div>
-                </div>
-            </div>
-
-            <div class="history-section">
-                <div class="history-header">
-                    <h3>📊 取引履歴</h3>
-                </div>
-                <div class="history-list" id="historyList">
-                    <div class="empty-state">
-                        <div class="emoji">📝</div>
-                        <p>まだ取引がありません<br>収入や支出を追加してみましょう！</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // データ管理
-        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-
-        // 今日の日付をデフォルトに設定
-        document.getElementById('date').valueAsDate = new Date();
-
-        // 取引追加
+        // 取引追加（画像対応版）
         function addTransaction(type) {
             const description = document.getElementById('description').value.trim();
             const amount = parseFloat(document.getElementById('amount').value);
             const category = document.getElementById('category').value;
             const date = document.getElementById('date').value;
+            const receiptFile = document.getElementById('receipt').files[0];
 
             if (!description || !amount || amount <= 0) {
                 alert('内容と金額を正しく入力してください');
@@ -466,70 +64,35 @@
                 timestamp: new Date().toISOString()
             };
 
-            transactions.unshift(transaction);
-            saveData();
-            updateDisplay();
-            clearForm();
+            // 支出の場合のみ画像を保存
+            if (type === 'expense' && receiptFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    transaction.receiptImage = e.target.result;
+                    transactions.unshift(transaction);
+                    saveData();
+                    updateDisplay();
+                    clearForm();
+                };
+                reader.readAsDataURL(receiptFile);
+            } else {
+                transactions.unshift(transaction);
+                saveData();
+                updateDisplay();
+                clearForm();
+            }
         }
 
-        // フォームクリア
+        // フォームクリア（画像対応版）
         function clearForm() {
             document.getElementById('description').value = '';
             document.getElementById('amount').value = '';
             document.getElementById('date').valueAsDate = new Date();
+            document.getElementById('receipt').value = '';
+            document.getElementById('imagePreview').innerHTML = '';
         }
 
-        // データ保存
-        function saveData() {
-            localStorage.setItem('transactions', JSON.stringify(transactions));
-        }
-
-        // 取引削除
-        function deleteTransaction(id) {
-            if (confirm('この取引を削除しますか？')) {
-                transactions = transactions.filter(t => t.id !== id);
-                saveData();
-                updateDisplay();
-            }
-        }
-
-        // 表示更新
-        function updateDisplay() {
-            updateSummary();
-            updateHistory();
-        }
-
-        // サマリー更新
-        function updateSummary() {
-            const currentMonth = new Date().toISOString().slice(0, 7);
-            const monthlyTransactions = transactions.filter(t => t.date.startsWith(currentMonth));
-
-            const totalIncome = monthlyTransactions
-                .filter(t => t.type === 'income')
-                .reduce((sum, t) => sum + t.amount, 0);
-
-            const totalExpense = monthlyTransactions
-                .filter(t => t.type === 'expense')
-                .reduce((sum, t) => sum + t.amount, 0);
-
-            const balance = totalIncome - totalExpense;
-
-            document.getElementById('totalIncome').textContent = `¥${totalIncome.toLocaleString()}`;
-            document.getElementById('totalExpense').textContent = `¥${totalExpense.toLocaleString()}`;
-            document.getElementById('balance').textContent = `¥${balance.toLocaleString()}`;
-
-            // 収支の色を変更
-            const balanceElement = document.getElementById('balance');
-            if (balance > 0) {
-                balanceElement.style.color = '#4CAF50';
-            } else if (balance < 0) {
-                balanceElement.style.color = '#f44336';
-            } else {
-                balanceElement.style.color = '#2196F3';
-            }
-        }
-
-        // 履歴更新
+        // 履歴更新（画像対応版）
         function updateHistory() {
             const historyList = document.getElementById('historyList');
 
@@ -555,6 +118,12 @@
                         <div class="item-amount ${transaction.type}">
                             ${transaction.type === 'income' ? '+' : '-'}¥${transaction.amount.toLocaleString()}
                         </div>
+                        ${transaction.receiptImage ? `
+                            <img src="${transaction.receiptImage}" 
+                                 class="receipt-image" 
+                                 alt="レシート" 
+                                 onclick="showImageModal('${transaction.receiptImage}')">
+                        ` : ''}
                         <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">
                             🗑️
                         </button>
@@ -562,20 +131,3 @@
                 </div>
             `).join('');
         }
-
-        // 初期表示
-        updateDisplay();
-
-        // Enterキーでの追加
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
-                const amount = document.getElementById('amount').value;
-                if (amount && parseFloat(amount) > 0) {
-                    // 金額が正の場合は収入として追加
-                    addTransaction('income');
-                }
-            }
-        });
-    </script>
-</body>
-</html>
